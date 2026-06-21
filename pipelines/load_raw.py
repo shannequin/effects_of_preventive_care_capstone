@@ -10,4 +10,10 @@ def create_raw_table_from_df(df: pd.DataFrame, table_name: str) -> None:
     engine = get_db_connection()
 
     with engine.begin() as conn:
-        df.to_sql(name=table_name, con=conn, schema="raw", if_exists="replace", index=False)
+        df.to_sql(
+            name=table_name,
+            con=conn,
+            schema="raw",
+            if_exists="replace",
+            index=False
+        )

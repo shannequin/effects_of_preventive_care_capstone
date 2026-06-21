@@ -9,32 +9,18 @@ engine = get_db_connection()
 with engine.begin() as conn:
     df = pd.read_sql_query(text("SELECT * FROM raw.cdc_us_cancer_statistics"), conn)
 
-# Fill missing Sex values based on source_file name patterns
-print(df['Sex'].value_counts())
+sex_map = {
+    "male-and-female": "Male and Female",
+    "female": "Female",
+    "male": "Male"
+}
 
-mask = (
-    df['Sex'].isna()
-    & df['source_file'].str.contains("male-and-female")
-)
+for k, v in sex_map.items():
+    mask = (
+        df['Sex'].isna()
+        & df['source_file'].str.contains(k)
+    )
 
-print(f"Number of rows to be updated to Male and Female: {mask.sum()}")
+    df.loc[mask, 'Sex'] = v
 
-df.loc[mask, 'Sex'] = "Male and Female"
-
-mask = (
-    df['Sex'].isna()
-    & df['source_file'].str.contains("female")
-)
-print(f"Number of rows to be updated to Female: {mask.sum()}")
-
-df.loc[mask, 'Sex'] = "Female"
-
-mask = (
-    df['Sex'].isna()
-    & df['source_file'].str.contains("male")
-)
-print(f"Number of rows to be updated to Male: {mask.sum()}")
-
-df.loc[mask, 'Sex'] = "Male"
-
-print(df['Sex'].value_counts())
+    print(f"Number of rows to be updated to {v}: {mask.sum()}")
