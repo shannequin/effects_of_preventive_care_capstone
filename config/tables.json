@@ -2,6 +2,14 @@
     "ALLOWED_RAW_TABLES": [
         "cdc_us_cancer_statistics"
     ],
-    "ALLOWED_STAGING_TABLES": [],
+    "ALLOWED_STAGING_TABLES": [
+        "uscs_incidence_chart",
+        "uscs_mortality_chart",
+        "uscs_preliminary_estimates_chart",
+        "uscs_prevalence_chart",
+        "uscs_stage_at_diagnosis_chart",
+        "uscs_survival_chart",
+        "uscs_trends_chart"
+    ],
     "ALLOWED_CORE_TABLES": []
 }

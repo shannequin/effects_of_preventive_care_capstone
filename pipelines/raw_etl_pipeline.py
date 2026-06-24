@@ -1,5 +1,7 @@
-from extract import get_file_names, extract_data_from_file_list, merge_dataframes
-from load_raw import create_raw_table_from_df
+from extract import (get_file_names,
+                     extract_data_from_file_list,
+                     merge_dataframes)
+from load import create_and_load_raw_table
 
 
 def run_raw_etl_pipeline(table_name: str) -> None:
@@ -11,7 +13,7 @@ def run_raw_etl_pipeline(table_name: str) -> None:
     file_name_list = get_file_names(path)
     dataframe_list = extract_data_from_file_list(path, file_name_list)
     merged_dataframe = merge_dataframes(dataframe_list)
-    create_raw_table_from_df(df=merged_dataframe, table_name=table_name)
+    create_and_load_raw_table(df=merged_dataframe, table_name=table_name)
     print(f"Raw ETL pipeline completed for table '{table_name}'.")
 
 if __name__ == "__main__":

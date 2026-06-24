@@ -1,5 +1,9 @@
 from extract import extract_all_from_raw
-from transform import clean_column_names, create_statistic_type_field, fill_missing_sex_values
+from load import create_and_load_staging_tables
+from transform import (clean_column_names,
+                       create_additional_fields,
+                       fill_missing_sex_values,
+                       split_dataframe_by_statistic_type)
 
 
 def run_staging_etl_pipeline(table_name: str) -> None:
@@ -9,12 +13,12 @@ def run_staging_etl_pipeline(table_name: str) -> None:
     
     df = extract_all_from_raw(table_name=table_name)
     df = clean_column_names(df=df)
-    df = create_statistic_type_field(df=df)
+    df = create_additional_fields(df=df)
     df = fill_missing_sex_values(df=df)
-    # TODO: Split the dataframe into multiple staging tables based on the statistic_type
-    # TODO: Create and clean the cancer_type field based on the source_file column
-    # TODO: Load the cleaned data into the staging schema in the database
-    print(f"Staging ETL pipeline completed for table '{table_name}'.")
+    # TODO: For each dataframe, remove any columns that are all null values
+    df_dict = split_dataframe_by_statistic_type(df=df)
+    create_and_load_staging_tables(df_dict=df_dict)
+    print(f"Staging ETL pipeline completed.")
 
 if __name__ == "__main__":
 
