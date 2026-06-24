@@ -1,0 +1,7 @@
+{
+    "ALLOWED_RAW_TABLES": [
+        "cdc_us_cancer_statistics"
+    ],
+    "ALLOWED_STAGING_TABLES": [],
+    "ALLOWED_CORE_TABLES": []
+}
