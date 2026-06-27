@@ -74,37 +74,27 @@ def fill_missing_sex_values(df: pd.DataFrame) -> pd.DataFrame:
 
 def split_dataframe_by_statistic_type(df: pd.DataFrame) -> dict:
     """
-    Split the dataframe into multiple dataframes based on the statistic_type column. Drop any columns that are all null values in each dataframe.
+    Split the dataframe into multiple dataframes based on the statistic_type column.
+    Drop any columns that are all null values in each dataframe. Update column types as needed.
     Returns a dictionary of dataframes with statistic_type as keys.
     """
     df_dict = {"_".join(stat_type.split()).lower(): sub_df for stat_type, sub_df in df.groupby('statistic_type')}
 
-    # Drop any columns that are all null values in each dataframe
     for stat_type, df in df_dict.items():
         df = df.drop(columns="source_file")
         df = df.dropna(axis=1, how='all')
-        
-        if "population" in df.columns:
-            df['population'] = df["population"].astype("Int64")
 
-        if "death_count" in df.columns:
-            df['death_count'] = df['death_count'].astype("Int64")
+        column_map = ["count", "population", "year"]
 
-        if "estimated_case_count" in df.columns:
-            df['estimated_case_count'] = df['estimated_case_count'].astype("Int64")
+        for col in df.columns:
+            if any(keyword in col.lower() for keyword in column_map):
+                if "pct" in col:
+                    break
 
-        if "prevalence_count" in df.columns:
-            df['prevalence_count'] = df['prevalence_count'].astype("Int64")
-
-        if "case_count" in df.columns:
-            df['case_count'] = df['case_count'].astype("Int64")
-
-        if "year" in df.columns:
-            df['year'] = df['year'].astype("Int64")
+                df[col] = df[col].astype("Int64")
 
         df_dict[stat_type] = df
 
-    print(df_dict['uscs_trends_chart'].sample(20))
     print(f"Dataframe split into {len(df_dict)} dataframes based on statistic_type.")
 
     return df_dict

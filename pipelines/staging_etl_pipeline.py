@@ -10,14 +10,12 @@ def run_staging_etl_pipeline(table_name: str) -> None:
     """
     Run the staging ETL pipeline to fetch data from a raw table, clean, and load it into the staging schema.
     """
-    
     df = extract_all_from_raw(table_name=table_name)
     df = clean_column_names(df=df)
     df = create_additional_fields(df=df)
     df = fill_missing_sex_values(df=df)
-    # TODO: For each dataframe, remove any columns that are all null values
     df_dict = split_dataframe_by_statistic_type(df=df)
-    # create_and_load_staging_tables(df_dict=df_dict)
+    create_and_load_staging_tables(df_dict=df_dict)
     print(f"Staging ETL pipeline completed.")
 
 if __name__ == "__main__":
