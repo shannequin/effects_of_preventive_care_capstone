@@ -10,7 +10,7 @@ def update_config_tables(table_name: str, schema: str) -> None:
     Update the configuration file to include the new table name in the list of allowed tables.
     """
     # Append the table name to the list of allowed raw tables
-    config_path = "config/tables.json"
+    config_path = "config/allowed_tables.json"
 
     # Read the existing configuration
     with open(config_path, "r") as f:

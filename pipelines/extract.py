@@ -50,7 +50,7 @@ def extract_all_from_raw(table_name: str) -> pd.DataFrame:
     Extract all records from the specified table in the raw schema of the database.
     """
     # Import list of allowed tables
-    with open("config/tables.json") as f:
+    with open("config/allowed_tables.json") as f:
         tables_config = json.load(f)
 
     # Validate if the table name is in the allowed list

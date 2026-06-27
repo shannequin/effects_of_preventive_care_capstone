@@ -1,0 +1,10 @@
+{
+    "uscs": {
+        "path": "data_to_ingest//uscs",
+        "table_name": "cdc_us_cancer_statistics"
+    },
+    "nhis": {
+        "path": "data_to_ingest//nhis",
+        "table_name": "national_health_interview_survey"
+    }
+}

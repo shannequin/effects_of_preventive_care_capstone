@@ -1,6 +1,7 @@
 {
     "ALLOWED_RAW_TABLES": [
-        "cdc_us_cancer_statistics"
+        "cdc_us_cancer_statistics",
+        "national_health_interview_survey"
     ],
     "ALLOWED_STAGING_TABLES": [
         "uscs_incidence_chart",
