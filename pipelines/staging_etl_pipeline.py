@@ -17,7 +17,7 @@ def run_staging_etl_pipeline(table_name: str) -> None:
     df = fill_missing_sex_values(df=df)
     # TODO: For each dataframe, remove any columns that are all null values
     df_dict = split_dataframe_by_statistic_type(df=df)
-    create_and_load_staging_tables(df_dict=df_dict)
+    # create_and_load_staging_tables(df_dict=df_dict)
     print(f"Staging ETL pipeline completed.")
 
 if __name__ == "__main__":
