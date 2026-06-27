@@ -20,9 +20,11 @@ def run_staging_etl_pipeline(table_name: str) -> None:
 
 if __name__ == "__main__":
 
-    table_name = "cdc_us_cancer_statistics"
+    # Set the table name
+    table_name = "" #"cdc_us_cancer_statistics"
 
     try:
+        # If a table name is given, then run the pipeline
         if table_name:
             run_staging_etl_pipeline(table_name=table_name)
 

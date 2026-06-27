@@ -22,7 +22,7 @@ def create_tables(conn, table_name: str) -> None:
             payload JSONB NOT NULL
         )
     """))
-    
+
     conn.execute(text(f"""
         CREATE TABLE IF NOT EXISTS core.{table_name} (
             ingestion_id BIGSERIAL PRIMARY KEY,
@@ -35,15 +35,18 @@ def create_tables(conn, table_name: str) -> None:
 
 
 if __name__ == "__main__":
-
+    # Set the table name
     table_name = "" #"cdc_us_cancer_statistics"
 
     try:
+        # Initialize the database connection
         engine = get_db_connection()
 
         with engine.begin() as conn:
+            # Create schemas
             create_schemas(conn)
 
+            # If a table name is given, create tables
             if table_name:
                 create_tables(conn, table_name)
 

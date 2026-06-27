@@ -22,8 +22,10 @@ def extract_data_from_file_list(path: str, file_name_list: list) -> list:
     Create a list of dataframes by reading the data files.
     Add a column for the source file name to each dataframe for traceability.
     """
+    # Initialize empty list for dataframes
     df_list = []
 
+    # Create a list of dataframes
     for file_name in file_name_list:
         df = pd.read_csv(filepath_or_buffer=os.path.join(path, file_name))
         df['source_file'] = file_name
@@ -56,10 +58,10 @@ def extract_all_from_raw(table_name: str) -> pd.DataFrame:
         raise ValueError(f"Table '{table_name}' is not in the allowed list.")
 
     else:
-        # Connect to the database
+        # Initialize the database connection
         engine = get_db_connection()
 
-        # Fetch all records from the specified table
+        # Fetch all records from the specified raw table
         with engine.begin() as conn:
             query = text(f"SELECT * FROM raw.{table_name}")
             df = pd.read_sql_query(query, conn)

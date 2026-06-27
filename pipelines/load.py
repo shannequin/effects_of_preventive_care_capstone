@@ -16,12 +16,13 @@ def update_config_tables(table_name: str, schema: str) -> None:
     with open(config_path, "r") as f:
         tables_config = json.load(f)
 
+    # Fetch the tables for the given schema
     allowed_tables = tables_config[f"ALLOWED_{schema.upper()}_TABLES"]
 
     # Validate if the table name is already in the allowed list
     if table_name in allowed_tables:
         print(f"Table '{table_name}' already exists in the allowed list.")
-    
+
     else:
         # Append the new table name to the allowed list and sort it
         allowed_tables.append(table_name)
@@ -38,9 +39,11 @@ def create_and_load_raw_table(df: pd.DataFrame, table_name: str) -> None:
     Create a new table in the database raw schema.
     If the table already exists, it will be overwritten.
     """
+    # Initialize the database connection
     engine = get_db_connection()
 
     with engine.begin() as conn:
+        # Create and load the table
         df.to_sql(
             name=table_name,
             con=conn,
@@ -51,15 +54,18 @@ def create_and_load_raw_table(df: pd.DataFrame, table_name: str) -> None:
 
     print(f"Table 'raw.{table_name}' created with {len(df)} records.")
 
+    # Update the config for the allowed tables
     update_config_tables(table_name=table_name, schema="raw")
 
 def create_and_load_staging_tables(df_dict: dict) -> None:
     """
     Create and load staging tables in the database based on the provided dictionary of dataframes.
     """
+    # Initialize the database connection
     engine = get_db_connection()
 
     with engine.begin() as conn:
+        # Create and load the tables
         for table_name, df in df_dict.items():
             df.to_sql(
                 name=table_name,
@@ -68,7 +74,8 @@ def create_and_load_staging_tables(df_dict: dict) -> None:
                 if_exists="replace",
                 index=False
             )
-    
+
             print(f"Table 'staging.{table_name}' created with {len(df)} records.")
 
+            # Update the config for the allowed tables
             update_config_tables(table_name=table_name, schema="staging")
