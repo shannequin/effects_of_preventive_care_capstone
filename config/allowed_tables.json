@@ -1,5 +1,6 @@
 {
     "ALLOWED_RAW_TABLES": [
+        "behavioral_risk_factor_surveillance_system",
         "cdc_us_cancer_statistics",
         "national_health_interview_survey"
     ],

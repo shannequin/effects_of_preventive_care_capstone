@@ -34,10 +34,9 @@ def update_config_tables(table_name: str, schema: str) -> None:
 
         print(f"Table '{table_name}' added to the allowed list.")
 
-def create_and_load_raw_table(df: pd.DataFrame, table_name: str) -> None:
+def create_and_load_table(df: pd.DataFrame, table_name: str, schema: str, if_exists: str) -> None:
     """
-    Create a new table in the database raw schema.
-    If the table already exists, it will be overwritten.
+    Create a new table in the given schema of the database.
     """
     # Initialize the database connection
     engine = get_db_connection()
@@ -47,35 +46,12 @@ def create_and_load_raw_table(df: pd.DataFrame, table_name: str) -> None:
         df.to_sql(
             name=table_name,
             con=conn,
-            schema="raw",
-            if_exists="replace",
+            schema=schema,
+            if_exists=if_exists,
             index=False
         )
 
-    print(f"Table 'raw.{table_name}' created with {len(df)} records.")
+    print(f"Table '{schema}.{table_name}' created with {len(df)} records.")
 
     # Update the config for the allowed tables
-    update_config_tables(table_name=table_name, schema="raw")
-
-def create_and_load_staging_tables(df_dict: dict) -> None:
-    """
-    Create and load staging tables in the database based on the provided dictionary of dataframes.
-    """
-    # Initialize the database connection
-    engine = get_db_connection()
-
-    with engine.begin() as conn:
-        # Create and load the tables
-        for table_name, df in df_dict.items():
-            df.to_sql(
-                name=table_name,
-                con=conn,
-                schema="staging",
-                if_exists="replace",
-                index=False
-            )
-
-            print(f"Table 'staging.{table_name}' created with {len(df)} records.")
-
-            # Update the config for the allowed tables
-            update_config_tables(table_name=table_name, schema="staging")
+    update_config_tables(table_name=table_name, schema=schema)

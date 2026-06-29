@@ -3,7 +3,7 @@ import json
 from extract import (get_file_names,
                      extract_data_from_file_list,
                      merge_dataframes)
-from load import create_and_load_raw_table
+from load import create_and_load_table
 
 
 def run_raw_etl_pipeline(path: str, table_name: str) -> None:
@@ -14,7 +14,12 @@ def run_raw_etl_pipeline(path: str, table_name: str) -> None:
     file_name_list = get_file_names(path)
     dataframe_list = extract_data_from_file_list(path, file_name_list)
     merged_dataframe = merge_dataframes(dataframe_list)
-    create_and_load_raw_table(df=merged_dataframe, table_name=table_name)
+    create_and_load_table(
+        df=merged_dataframe,
+        table_name=table_name,
+        schema="raw",
+        if_exists="replace"
+    )
 
     print(f"Raw ETL pipeline completed for table '{table_name}'.")
 
