@@ -1,5 +1,4 @@
 import json
-from matplotlib.pylab import rint
 import pandas as pd
 
 from database.connection import get_db_connection

@@ -2,7 +2,7 @@ import json
 import os
 import pandas as pd
 
-from pipelines.load import create_and_load_table
+from load import create_and_load_table
 
 
 def run_brfss_etl_pipeline(path: str, table_name: str) -> None:
