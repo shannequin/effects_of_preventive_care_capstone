@@ -1,4 +1,4 @@
-{
+brfss_value_map = {
     "_STATE": {
         "Question": "State FIPS Code",
         "1": "Alabama",
@@ -179,27 +179,6 @@
         "9": "Refused",
         "null": "Not asked or missing"
     },
-    "LASTDEN4": {
-        "Question": "Including all types of dentists, such as orthodontists, oral surgeons, and all other dental specialists, as well as dental hygienists, how long has it been since you last visited a dentist or a dental clinic for any reason?",
-        "1": "Within the past year (anytime < 12 months ago)",
-        "2": "Within the past 2 years (1 year but < 2 years ago)",
-        "3": "Within the past 5 years (2 years but < 5 years ago)",
-        "4": "5 or more years ago",
-        "7": "Don't know or not sure",
-        "8": "Never",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "RMVTETH4": {
-        "Question": "Not including teeth lost for injury or orthodontics, how many of your permanent teeth have been removed because of tooth decay or gum disease?",
-        "1": "1 to 5",
-        "2": "6 or more, but not all",
-        "3": "All",
-        "7": "Don't know or not sure",
-        "8": "None",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
     "CVDINFR4": {
         "Question": "(Ever told) you had a heart attack, also called a myocardial infarction?",
         "1": "Yes",
@@ -210,30 +189,6 @@
     },
     "CVDCRHD4": {
         "Question": "(Ever told) (you had) angina or coronary heart disease?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "CVDSTRK3": {
-        "Question": "(Ever told) (you had) a stroke?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "ASTHMA3": {
-        "Question": "(Ever told) (you had) asthma?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "ASTHNOW": {
-        "Question": "Do you still have asthma?",
         "1": "Yes",
         "2": "No",
         "7": "Don't know or not sure",
@@ -256,53 +211,12 @@
         "9": "Refused",
         "null": "Not asked or missing"
     },
-    "CHCCOPD3": {
-        "Question": "(Ever told) (you had) C.O.P.D. (chronic obstructive pulmonary disease), emphysema or chronic bronchitis?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "ADDEPEV3": {
-        "Question": "(Ever told) (you had) a depressive disorder (including depression, major depression, dysthymia, or minor depression)?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
     "CHCKDNY2": {
         "Question": "Not including kidney stones, bladder infection or incontinence, were you ever told you had kidney disease?",
         "1": "Yes",
         "2": "No",
         "7": "Don't know or not sure",
         "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "HAVARTH4": {
-        "Question": "(Ever told) (you had) some form of arthritis, rheumatoid arthritis, gout, lupus, or fibromyalgia?  (Arthritis diagnoses include: rheumatism, polymyalgia rheumatic, osteoarthritis (not osteoporosis), tendonitis, bursitis, bunion, tennis elbow, carpal tunnel syndrome, tarsal tunnel syndrome, joint infection, Reiter's syndrome, ankylosing spondylitis;)",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "DIABETE4": {
-        "Question": "(Ever told) (you had) diabetes?", # (If 'Yes' and respondent is female, ask 'Was this only when you were pregnant?'. If Respondent says pre-diabetes or borderline diabetes, use response code 4.)
-        "1": "Yes",
-        "2": "Yes, but female told only during pregnancy",
-        "3": "No",
-        "4": "No, pre-diabetes or borderline diabetes",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "DIABAGE4": {
-        "Question": "How old were you when you were first told you had diabetes?",
-        "1-97": "Age in years [97 = 97 and older]",
-        "98": "Don't know or not sure",
-        "99": "Refused",
         "null": "Not asked or missing"
     },
     "MARITAL": {
@@ -387,54 +301,6 @@
         "7777": "Don't know or not sure",
         "9061 - 9998": "Height (meters/centimeters)",
         "9999": "Refused",
-        "null": "Not asked or missing"
-    },
-    "DEAF": {
-        "Question": "Are you deaf or do you have serious difficulty hearing?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "BLIND": {
-        "Question": "Are you blind or do you have serious difficulty seeing, even when wearing glasses?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "DECIDE": {
-        "Question": "Because of a physical, mental, or emotional condition, do you have serious difficulty concentrating, remembering, or making decisions?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "DIFFWALK": {
-        "Question": "Do you have serious difficulty walking or climbing stairs?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "DIFFDRES": {
-        "Question": "Do you have difficulty dressing or bathing?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "DIFFALONE": {
-        "Question": "Because of a physical, mental, or emotional condition, do you have difficulty doing errands alone such as visiting a doctor's office or shopping?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
         "null": "Not asked or missing"
     },
     "HADMAM": {
@@ -800,113 +666,6 @@
         "9": "Refused",
         "null": "Not asked or missing"
     },
-    "PDIABTS1": {
-        "Question": "When was the last time you had a blood test for high blood sugar or diabetes by a doctor, nurse, or other health professional?",
-        "1": "Within the past year (anytime less than 12 months ago)",
-        "2": "Within the past 2 years (1 year but less than 2 years)",
-        "3": "Within the past 3 years (2 years but less than 3 years)",
-        "4": "Within the past 5 years (3 to 4 years but less than 5 years ago)",
-        "5": "Within the past 10 years (5 to 9 years but less than 10 years ago)",
-        "6": "10 years ago or more",
-        "7": "Don't know / Not sure",
-        "8": "Never",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "PREDIAB2": {
-        "Question": "Has a doctor or other health professional ever told you that you had prediabetes or borderline diabetes?", # (If 'Yes' and respondent is female, ask: 'Was this only when you were pregnant?')
-        "1": "Yes",
-        "2": "Yes, during pregnancy",
-        "3": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "DIABTYPE": {
-        "Question": "According to your doctor or other health professional, what type of diabetes do you have?",
-        "1": "Type 1",
-        "2": "Type 2",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "INSULIN1": {
-        "Question": "Are you now taking insulin?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "CHKHEMO3": {
-        "Question": "About how many times in the past 12 months has a doctor, nurse, or other health professional checked you for A-one-C?",
-        "1-76": "Number of times [76=76 or more]",
-        "88": "None",
-        "98": "Never heard of 'A one C' test",
-        "77": "Don't know or not sure",
-        "99": "Refused",
-        "null": "Not asked or missing"
-    },
-    "EYEEXAM1": {
-        "Question": "When was the last time you had an eye exam in which the pupils were dilated, making you temporarily sensitive to bright light?",
-        "1": "Within the past month (anytime less than 1 month ago)",
-        "2": "Within the past year (1 month but less than 12 months ago)",
-        "3": "Within the past 2 years (1 year but less than 2 years ago)",
-        "4": "2 or more years ago",
-        "6": "",
-        "7": "Don't know or not sure",
-        "8": "Never",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "DIABEYE1": {
-        "Question": "When was the last time a doctor, nurse or other health professional took a photo of the back of your eye with a specialized camera?",
-        "1": "Within the past month (anytime less than 1 month ago)",
-        "2": "Within the past year (1 month but less than 12 months ago)",
-        "3": "Within the past 2 years (1 year but less than 2 years ago)",
-        "4": "2 or more years ago",
-        "7": "Don't know or not sure",
-        "8": "Never",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "DIABEDU1": {
-        "Question": "When was the last time you took a course or class in how to manage your diabetes yourself?",
-        "1": "Within the past year (anytime less than 12 months ago)",
-        "2": "Within the last 2 years (1 year but less than 2 years ago)",
-        "3": "Within the last 3 years (2 years but less than 3 years ago)",
-        "4": "Within the last 5 years (3 to 4 years but less than 5 years ago)",
-        "5": "Within the last 10 years (5 to 9 years but less than 10 years ago)",
-        "6": "10 years ago or more",
-        "7": "Don't know or not sure",
-        "8": "Never",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "FEETSORE": {
-        "Question": "Have you ever had any sores or irritations on your feet that took more than four weeks to heal?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "ARTHEXER": {
-        "Question": "Has a doctor or other health professional ever suggested physical activity or exercise to help your arthritis or joint symptoms?", # (If the respondent is unclear about whether this means an increase or decrease in physical activity, this means increase.)
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "SHINGLE2": {
-        "Question": "Have you ever had the shingles or zoster vaccine?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
     "HPVADVC4": {
         "Question": "Have you ever had an H.P.V. vaccination?",
         "1": "Yes",
@@ -921,16 +680,6 @@
         "1 - 2": "Number of shots",
         "3": "All shots",
         "4": "",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "TETANUS1": {
-        "Question": "Have you received a tetanus shot in the past 10 years?", # (If yes, ask: Was this Tdap, the tetanus shot that also has pertussis or whooping cough vaccine?)
-        "1": "Yes, received Tdap",
-        "2": "Yes, received tetanus shot, but not Tdap",
-        "3": "Yes, received tetanus shot but not sure what type",
-        "4": "No, did not receive any tetanus shot in the past 10 years",
         "7": "Don't know or not sure",
         "9": "Refused",
         "null": "Not asked or missing"
@@ -1127,46 +876,6 @@
         "9": "Refused",
         "null": "Not asked or missing"
     },
-    "CIMEMLO1": {
-        "Question": "During the past 12 months, have you experienced difficulties with thinking or memory that are happening more often or are getting worse?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "CDWORRY": {
-        "Question": "Are you worried about these difficulties with thinking or memory?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "CDDISCU1": {
-        "Question": "Have you or anyone else discussed your difficulties with thinking or memory with a health care provider?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "CDHOUS1": {
-        "Question": "During the past 12 months, have your difficulties with thinking or memory interfered with day-to-day activities, such as managing medications, paying bills, or keeping track of appointments?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "CDSOCIA1": {
-        "Question": "During the past 12 months, have your difficulties with thinking or memory interfered with your ability to work or volunteer?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
     "LSATISFY": {
         "Question": "In general, how satisfied are you with your life?",
         "1": "Very satisfied",
@@ -1354,26 +1063,6 @@
         "9": "Refused",
         "null": "Not asked or missing"
     },
-    "SSBSUGR2": {
-        "Question": "During the past 30 days, how often did you drink regular soda or pop that contains sugar?  Do not include diet soda or diet pop.", # (You can answer times per day, week, or month: for example, twice a day, once a week, and so forth.)
-        "101-199": "Times per day",
-        "201-299": "Times per week",
-        "301-399": "Times per month",
-        "777": "Don't know or not sure",
-        "888": "Never",
-        "999": "Refused",
-        "null": "Not asked or missing"
-    },
-    "SSBFRUT3": {
-        "Question": "During the past 30 days, how often did you drink sugar-sweetened fruit drinks (such as Kool-aid and lemonade), sweet tea, and sports or energy drinks (such as Gatorade and Red Bull)? Do not include 100 percent fruit juice, diet drinks, or artificially sweetened drinks.", # (You can answer times per day, week, or month: for example, twice a day, once a week, and so forth.)
-        "101-199": "Times per day",
-        "201-299": "Times per week",
-        "301-399": "Times per month",
-        "777": "Don't know or not sure",
-        "888": "Never",
-        "999": "Refused",
-        "null": "Not asked or missing"
-    },
     "SOMALE": {
         "Question": "Which of the following best represents how you think of yourself?",
         "1": "Gay",
@@ -1418,285 +1107,5 @@
         "3": "Inside a suburban county of the MSA",
         "5": "Not in an MSA",
         "null": "GU, PR, VI, or cell phone"
-    },
-    "_IMPRACE": {
-        "Question": "Imputed race/ethnicity value", # (This value is the reported race/ethnicity or an imputed race/ethnicity, if the respondent refused to give a race/ethnicity. The value of the imputed race/ethnicity will be the most common race/ethnicity response for that region of the state)
-        "1": "White, Non-Hispanic",
-        "2": "Black, Non-Hispanic",
-        "3": "Asian, Non-Hispanic",
-        "4": "American Indian/Alaskan Native, Non-Hispanic",
-        "5": "Hispanic",
-        "6": "Other race, Non-Hispanic"
-    },
-    "_RFHLTH": {
-        "Question": "Adults with good or better health",
-        "1": "Good or Better Health",
-        "2": "Fair or Poor Health",
-        "9": "Don't know/Not Sure Or Refused/Missing"
-    },
-    "_PHYS14D": {
-        "Question": "3 level not good physical health status: 0 days, 1-13 days, 14-30 days",
-        "1": "Zero days when physical health not good",
-        "2": "1-13 days when physical health not good",
-        "3": "14+ days when physical health not good",
-        "9": "Don't know/Refused/Missing"
-    },
-    "_MENT14D": {
-        "Question": "3 level not good mental health status: 0 days, 1-13 days, 14-30 days",
-        "1": "Zero days when mental health not good",
-        "2": "1-13 days when mental health not good",
-        "3": "14+ days when mental health not good",
-        "9": "Don't know/Refused/Missing"
-    },
-    "_HLTHPL2": {
-        "Question": "Adults who had some form of health insurance",
-        "1": "Have some form of insurance",
-        "2": "Do not have some form of health insurance",
-        "9": "Don't know, refused or missing insurance response"
-    },
-    "_HCVU654": {
-        "Question": "Respondents aged 18-64 who have any form of health insurance",
-        "1": "Have some form of health insurance",
-        "2": "Do not have any form of health insurance",
-        "9": "Don't know/Not Sure, Refused or Missing"
-    },
-    "_TOTINDA": {
-        "Question": "Adults who reported doing physical activity or exercise during the past 30 days other than their regular job",
-        "1": "Had physical activity or exercise",
-        "2": "No physical activity or exercise in last 30 days",
-        "9": "Don't know/Refused/Missing"
-    },
-    "_EXTETH3": {
-        "Question": "Adults aged 18+ who have had permanent teeth extracted",
-        "1": "No",
-        "2": "Yes",
-        "9": "Don't know/Not Sure Or Refused/Missing"
-    },
-    "_ALTETH3": {
-        "Question": "Adults aged 65+ who have had all their natural teeth extracted",
-        "1": "No",
-        "2": "Yes",
-        "9": "Don't know/Not Sure Or Refused/Missing",
-        "null": "Missing or Age < 65"
-    },
-    "_DENVST3": {
-        "Question": "Adults who have visited a dentist, dental hygenist or dental clinic within the past year",
-        "1": "Yes",
-        "2": "No",
-        "9": "Don't know/Not Sure Or Refused/Missing"
-    },
-    "_MICHD": {
-        "Question": "Respondents that have ever reported having coronary heart disease (CHD) or myocardial infarction (MI)",
-        "1": "Reported having MI or CHD",
-        "2": "Did not report having MI or CHD",
-        "null": "Not asked or Missing"
-    },
-    "_LTASTH1": {
-        "Question": "Adults who have ever been told they have asthma",
-        "1": "No",
-        "2": "Yes",
-        "9": "Don't know/Not Sure Or Refused/Missing"
-    },
-    "_CASTHM1": {
-        "Question": "Adults who have been told they currently have asthma",
-        "1": "No",
-        "2": "Yes",
-        "9": "Don't know/Not Sure Or Refused/Missing"
-    },
-    "_ASTHMS1": {
-        "Question": "Computed asthma status",
-        "1": "Current",
-        "2": "Former",
-        "3": "Never",
-        "9": "Don't know/Not Sure Or Refused/Missing"
-    },
-    "_DRDXAR2": {
-        "Question": "Respondents who have had a doctor diagnose them as having some form of arthritis",
-        "1": "Diagnosed with arthritis",
-        "2": "Not diagnosed with arthritis",
-        "null": "Don't know/Not Sure/Refused/Missing"
-    },
-    "_MRACE1": {
-        "Question": "Calculated multiracial race categorization",
-        "1": "White only",
-        "2": "Black or African American only",
-        "3": "American Indian or Alaskan Native only",
-        "4": "Asian Only",
-        "5": "Native Hawaiian or other Pacific Islander only",
-        "6": "Other race only",
-        "7": "Multiracial",
-        "77": "Don't know/Not sure",
-        "99": "Refused",
-        "null": "Missing"
-    },
-    "_HISPANC": {
-        "Question": "Hispanic, Latino/a, or Spanish origin calculated variable",
-        "1": "Hispanic, Latino/a, or Spanish origin",
-        "2": "Not of Hispanic, Latino/a, or Spanish origin",
-        "9": "Don't Know, Refused or Missing"
-    },
-    "_RACE": {
-        "Question":  "Race/ethnicity categories",
-        "1": "White only, non-Hispanic",
-        "2": "Black only, non-Hispanic",
-        "3": "American Indian or Alaskan Native only, Non-Hispanic",
-        "4": "Asian only, non-Hispanic",
-        "5": "Native Hawaiian or other Pacific Islander only, Non-Hispanic",
-        "6": "Other race only, non-Hispanic",
-        "7": "Multiracial, non-Hispanic",
-        "8": "Hispanic",
-        "9": "Don't know/Not sure/Refused" 
-    },
-    "_RACEG21": {
-        "Question": "White non-Hispanic race group",
-        "1": "Non-Hispanic White",
-        "2": "Non-White or Hispanic",
-        "9": "Don't know/Not sure/Refused"
-    },
-    "_RACEGR3": {
-        "Question":  "Five-level race/ethnicity category",
-        "1": "White only, Non-Hispanic",
-        "2": "Black only, Non-Hispanic",
-        "3": "Other race only, Non-Hispanic",
-        "4": "Multiracial, Non-Hispanic",
-        "5": "Hispanic",
-        "9": "Don't know/Not sure/Refused"
-    },
-    "_RACEPRV": {
-        "Question": "Computed race groups used for internet prevalence tables",
-        "1": "White only, non-Hispanic",
-        "2": "Black only, non-Hispanic",
-        "3": "American Indian or Alaskan Native only, Non-Hispanic",
-        "4": "Asian only, non-Hispanic",
-        "5": "Native Hawaiian or other Pacific Islander only, Non-Hispanic",
-        "6": "Other race only, non-Hispanic",
-        "7": "Multiracial, non-Hispanic",
-        "8": "Hispanic"
-    },
-    "_SEX": {
-        "Question": "Calculated sex variable",
-        "1": "Male",
-        "2": "Female"
-    },
-    "_AGEG5YR": {
-        "Question": "Fourteen-level age category",
-        "1": "Age 18 to 24",
-        "2": "Age 25 to 29",
-        "3": "Age 30 to 34",
-        "4": "Age 35 to 39",
-        "5": "Age 40 to 44",
-        "6": "Age 45 to 49",
-        "7": "Age 50 to 54",
-        "8": "Age 55 to 59",
-        "9": "Age 60 to 64",
-        "10": "Age 65 to 69",
-        "11": "Age 70 to 74",
-        "12": "Age 75 to 79",
-        "13": "Age 80 or older",
-        "14": "Don't know/Refused/Missing"
-    },
-    "_AGE65YR": {
-        "Question": "Two-level age category",
-        "1": "Age 18 to 64",
-        "2": "Age 65 or older",
-        "3": "Don't know/Refused/Missing"
-    },
-    "_AGE80": {
-        "Question": "Imputed Age value collapsed above 80",
-        "1": "Age 18 to 24",
-        "2": "Age 25 to 29",
-        "3": "Age 30 to 34",
-        "4": "Age 35 to 39",
-        "5": "Age 40 to 44",
-        "6": "Age 45 to 49",
-        "7": "Age 50 to 54",
-        "8": "Age 55 to 59",
-        "9": "Age 60 to 64",
-        "10": "Age 65 to 69",
-        "11": "Age 70 to 74",
-        "12": "Age 75 to 79",
-        "13": "Age 80 or older"
-    },
-    "_AGE_G": {
-        "Question": "Six-level imputed age category",
-        "1": "Age 18 to 24",
-        "2": "Age 25 to 34",
-        "3": "Age 35 to 44",
-        "4": "Age 45 to 54",
-        "5": "Age 55 to 64",
-        "6": "Age 65 or older"
-    },
-    "HTIN4": {
-        "Question": "Reported height in inches",
-        "36 - 95": "Height in inches",
-        "null": "Don't know/Refused/Not asked or Missing"
-    },
-    "HTM4": {
-        "Question": "Reported height in meters",
-        "91 - 244": "Height in meters [2 implied decimal places]",
-        "null": "Don't know/Refused/Not asked or Missing"
-    },
-    "WTKG3": {
-        "Question": "Reported weight in kilograms",
-        "2300 - 29500": "Weight in kilograms [2 implied decimal places]",
-        "null": "Don't know/Refused/Not asked or Missing"
-    },
-    "_BMI5": {
-        "Question": "Body Mass Index (BMI)",
-        "1 - 9999": "1 or greater",
-        "null": "Don't know/Refused/Missing"
-    },
-    "_BMI5CAT": {
-        "Question": "Four-categories of Body Mass Index (BMI)",
-        "1": "Underweight",
-        "2": "Normal Weight",
-        "3": "Overweight",
-        "4": "Obese",
-        "null": "Don't know/Refused/Missing"
-    },
-    "_RFBMI5": {
-        "Question": "Adults who have a body mass index greater than 25.00 (Overweight or Obese)",
-        "1": "No",
-        "2": "Yes",
-        "9": "Don't know/Refused/Missing"
-    },
-    "_EDUCAG": {
-        "Question": "Level of education completed",
-        "1": "Did not graduate High School",
-        "2": "Graduated High School",
-        "3": "Attended College or Technical School",
-        "4": "Graduated from College or Technical School",
-        "9": "Don't know/Not sure/Missing"
-    },
-    "_INCOMG1": {
-        "Question": "Income categories",
-        "1": "Less than $15,000",
-        "2": "$15,000 to < $25,000",
-        "3": "$25,000 to < $35,000",
-        "4": "$35,000 to < $50,000",
-        "5": "$50,000 to < $100,000",
-        "6": "$100,000 to < $200,000",
-        "7": "$200,000 or more",
-        "9": "Don't know/Not sure/Missing"
-    },
-    "_RFMAM23": {
-        "Question": "Women respondents aged 40+ who have had a mammogram in the past two years",
-        "1": "Yes",
-        "2": "No",
-        "9": "Don't know/Not Sure/Refused",
-        "null": "Missing or Age < 40 or Male"
-    },
-    "_MAM402Y": {
-        "Question": "Women respondents aged 40-74 who have had a mammogram in the past two years",
-        "1": "Received a mammogram within the past 2 years.",
-        "2": "Did not receive a mammogram within the past 2 years.",
-        "null": "Missing, _IMPAGE < 40 or > 74 or Male"
-    },
-    "_CRVSCRN": {
-        "Question": "Female respondents that have had a cervical screening test",
-        "1": "Had PAP test in last 3 years or HPV test in last 5 years",
-        "2": "Had PAP test more than 3 years ago and HPV test more than 5 years ago",
-        "3": "Have not had PAP or HPV test",
-        "null": "Don't know/Refused/Missing or male respondents"
     }
 }
