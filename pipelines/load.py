@@ -8,11 +8,9 @@ def create_and_load_table(df: pd.DataFrame, table_name: str, schema: str, if_exi
     """
     Create or replace a table in the raw schema of the database.
     """
-    # Initialize the database connection
     engine = get_db_connection()
 
     with engine.begin() as conn:
-        # Create and load the table
         df.to_sql(
             name=table_name,
             con=conn,
@@ -27,10 +25,8 @@ def update_config_tables(table_name: str, schema: str) -> None:
     """
     Update the configuration file to include the new table name in the list of allowed tables.
     """
-    # Append the table name to the list of allowed raw tables
     config_path = "config/allowed_tables.json"
 
-    # Read the existing configuration
     with open(config_path, "r") as f:
         tables_config = json.load(f)
 

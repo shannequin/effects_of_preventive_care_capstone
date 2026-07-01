@@ -6,7 +6,6 @@ def run_raw_etl_pipeline(dataset: str) -> None:
     """
     ETL pipeline for raw CSV data.
     """
-
     path, table_name = fetch_raw_data_map(dataset=dataset)
 
     # Generic csv extraction logic
@@ -28,7 +27,7 @@ def run_raw_etl_pipeline(dataset: str) -> None:
 
 if __name__ == "__main__":
 
-    DATASET = 'uscs'
+    DATASET = 'nhis' # uscs, nhis
 
     try:
         run_raw_etl_pipeline(dataset=DATASET)

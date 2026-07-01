@@ -9,7 +9,6 @@ def create_additional_fields(df: pd.DataFrame) -> pd.DataFrame:
     """
     Create statistic type and cancer type field based on the source_file column.
     """
-
     # Split the source_file into multiple variables on the underscore
     source_file_split = df['source_file'].str.split('_', expand=True)
 
@@ -25,16 +24,16 @@ def create_additional_fields(df: pd.DataFrame) -> pd.DataFrame:
 
     print("Field created and populated: cancer_type")
 
-    # Create a year field based on the uscs_year_map
+    # Create a year field based on the uscs_year_map, but don't overwrite existing values
     uscs_year_map = {
-        "uscs_incidence_chart": "2018-2022",
-        "uscs_mortality_chart": "2019-2023",
-        "uscs_preliminary_estimates_chart": "2022",
-        "uscs_prevalence_chart": "2017-2022",
-        "uscs_stage_at_diagnosis_chart": "2018-2022",
-        "uscs_trends_chart": "1999-2022"
+        "uscs incidence chart": "2018-2022",
+        "uscs mortality chart": "2019-2023",
+        "uscs preliminary estimates chart": "2022",
+        "uscs prevalence chart": "2017-2022",
+        "uscs stage at diagnosis chart": "2018-2022",
     }
-    df['year'] = df['source_file'].map(uscs_year_map)
+    mapped_year = df["statistic_type"].map(uscs_year_map)
+    df.loc[mapped_year.notna(), "year"] = mapped_year
 
     print("Field created and populated: year")
 
@@ -71,7 +70,6 @@ def split_dataframe_by_statistic_type(df: pd.DataFrame) -> dict:
     Drop any columns that are all null values in each dataframe. Update column data types as needed.
     Returns a dictionary of dataframes with statistic_type as keys.
     """
-
     # Split the dataframe into a dictionary of dataframes based on the statistic type
     df_dict = {"_".join(stat_type.split()).lower(): sub_df for stat_type, sub_df in df.groupby('statistic_type')}
 
@@ -81,15 +79,11 @@ def split_dataframe_by_statistic_type(df: pd.DataFrame) -> dict:
         df = df.dropna(axis=1, how='all')
 
         # Set list of keywords for columns needing a data type conversion
-        column_map = ["count", "population", "year"]
+        column_map = ["count", "population"]
 
         for col in df.columns:
             # Find column names containing any of the keywords
             if any(keyword in col.lower() for keyword in column_map):
-                # Except columns containing 'pct'
-                if "pct" in col:
-                    break
-
                 # Convert column data type to an int
                 df[col] = df[col].astype("Int64")
 
@@ -97,7 +91,7 @@ def split_dataframe_by_statistic_type(df: pd.DataFrame) -> dict:
         first_cols = ["statistic_type", "cancer_type", "sex"]
         remaining_cols = [col for col in df.columns if col not in first_cols]
         df = df[first_cols + remaining_cols]
-        
+
         # Update the dataframe dictionary
         df_dict[stat_type] = df
 
@@ -146,4 +140,3 @@ if __name__ == "__main__":
 
     except Exception as e:
         raise RuntimeError(f"Error during staging ETL pipeline: {e}")
-    

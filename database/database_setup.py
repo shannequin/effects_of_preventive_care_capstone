@@ -35,11 +35,10 @@ def create_tables(conn, table_name: str) -> None:
 
 
 if __name__ == "__main__":
-    # Set the table name
-    table_name = "" #"cdc_us_cancer_statistics"
+
+    TABLE_NAME = "" #"cdc_us_cancer_statistics"
 
     try:
-        # Initialize the database connection
         engine = get_db_connection()
 
         with engine.begin() as conn:
@@ -47,8 +46,8 @@ if __name__ == "__main__":
             create_schemas(conn)
 
             # If a table name is given, create tables
-            if table_name:
-                create_tables(conn, table_name)
+            if TABLE_NAME:
+                create_tables(conn, TABLE_NAME)
 
     except Exception as e:
         raise RuntimeError(f"Error during database setup: {e}")

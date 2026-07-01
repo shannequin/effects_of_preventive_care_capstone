@@ -15,9 +15,9 @@ DB_NAME = os.getenv("DB_NAME")
 
 
 def get_db_connection() -> Engine:
-    """Creates and returns a SQLAlchemy Engine for the configured database.
     """
-    # Verify the environment variables
+    Creates and returns a SQLAlchemy Engine for the configured database.
+    """
     missing = [name for name, val in (
         ("DB_USER", DB_USER),
         ("DB_PASSWORD", DB_PASSWORD),
@@ -29,8 +29,8 @@ def get_db_connection() -> Engine:
     # If any environment variables are missing, raise a runtime error
     if missing:
         raise RuntimeError(f"Missing required DB environment variables: {', '.join(missing)}")
+
     else:
-        # Set the connection string for the database
         connection_string = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
     return create_engine(connection_string)

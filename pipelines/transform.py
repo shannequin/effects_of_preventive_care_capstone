@@ -6,7 +6,6 @@ def clean_column_names(df: pd.DataFrame) -> pd.DataFrame:
     """
     Standardize DataFrame column names using lowercase snake_case.
     """
-    # Create a copy of the dataframe
     df = df.copy()
 
     # Clean the column names

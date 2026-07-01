@@ -5,6 +5,14 @@
         "national_health_interview_survey"
     ],
     "ALLOWED_STAGING_TABLES": [
+        "ahs01_health_insurance",
+        "c05_breast_cancer_screenings",
+        "c07_colorectal_cancer_screenings",
+        "c09_cervical_cancer_screenings",
+        "iid09_flu_vaccinations",
+        "ohm01_overall_well_being",
+        "ohm04_life_expectancy_at_birth",
+        "ohm08_respondent_assessed_health_status",
         "uscs_incidence_chart",
         "uscs_mortality_chart",
         "uscs_preliminary_estimates_chart",

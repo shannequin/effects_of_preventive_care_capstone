@@ -18,9 +18,7 @@ def extract_map_load_asc(path: str, table_name: str, dataset: str):
         engine = get_db_connection()
 
         with open(path) as f:
-
             for i, line in enumerate(f, start=1):
-
                 row_dict = {}
 
                 # Map the values to the columns
@@ -46,7 +44,6 @@ def run_raw_etl_pipeline(dataset: str) -> None:
     """
     ETL pipeline for raw ASC data.
     """
-
     path, table_name = fetch_raw_data_map(dataset=dataset)
 
     # ASC specific extraction, mapping, and loading logic
