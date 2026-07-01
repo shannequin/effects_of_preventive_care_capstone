@@ -4,6 +4,25 @@ import pandas as pd
 from database.connection import get_db_connection
 
 
+def create_and_load_table(df: pd.DataFrame, table_name: str, schema: str, if_exists: str) -> None:
+    """
+    Create or replace a table in the raw schema of the database.
+    """
+    # Initialize the database connection
+    engine = get_db_connection()
+
+    with engine.begin() as conn:
+        # Create and load the table
+        df.to_sql(
+            name=table_name,
+            con=conn,
+            schema=schema,
+            if_exists=if_exists,
+            index=False
+        )
+
+    print(f"Table '{schema}.{table_name}' created with {len(df)} records.")
+
 def update_config_tables(table_name: str, schema: str) -> None:
     """
     Update the configuration file to include the new table name in the list of allowed tables.
@@ -32,25 +51,3 @@ def update_config_tables(table_name: str, schema: str) -> None:
             json.dump(tables_config, f, indent=4)
 
         print(f"Table '{table_name}' added to the allowed list.")
-
-def create_and_load_table(df: pd.DataFrame, table_name: str, schema: str, if_exists: str) -> None:
-    """
-    Create a new table in the given schema of the database.
-    """
-    # Initialize the database connection
-    engine = get_db_connection()
-
-    with engine.begin() as conn:
-        # Create and load the table
-        df.to_sql(
-            name=table_name,
-            con=conn,
-            schema=schema,
-            if_exists=if_exists,
-            index=False
-        )
-
-    print(f"Table '{schema}.{table_name}' created with {len(df)} records.")
-
-    # Update the config for the allowed tables
-    update_config_tables(table_name=table_name, schema=schema)
