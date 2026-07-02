@@ -65,8 +65,8 @@ Present your question. Feel free to include any research/articles that are relev
 # Notes
 
 * Create Google Doc for documenting the process: https://docs.google.com/document/d/1v-E5yx_0U507c50uh5mUwsKBTDiMeami7YytXxGiHFA/edit?usp=sharing
-* Create conda environment yaml file: conda env export > environment.yml
-* Create pip requirements file: pip list --format=freeze > requirements.txt
+* Create conda environment yaml file: *conda env export > environment.yml*
+* Create pip requirements file: *pip list --format=freeze > requirements.txt*
 * Create .env file for environment variables
 * Set Python interpreter to conda
-* Set project to Python search path: set PYTHONPATH=C:\Users\shann\Documents\NSS\effects_of_preventive_care_capstone
+* Set project to Python search path: *set PYTHONPATH=C:\Users\shann\Documents\NSS\effects_of_preventive_care_capstone*
