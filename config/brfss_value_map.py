@@ -1089,13 +1089,13 @@ brfss_value_map = {
         "2": "Spanish",
         "null": "Not asked or missing"
     },
-    "METSTAT": {
+    "_METSTAT": {
         "Question": "Metropolitan Status",
         "1": "Metropolitan counties (_URBNRRL = 1,2,3,4)",
         "2": "Nonmetropolitan counties (_URBNRRL = 5,6)",
         "null": "Not defined or Missing"
     },
-    "URBSTAT": {
+    "_URBSTAT": {
         "Question": "Urban/Rural Status",
         "1": "Urban counties (_URBNRRL = 1,2,3,4,5)",
         "2": "Rural counties (_URBNRRL = 6)",
