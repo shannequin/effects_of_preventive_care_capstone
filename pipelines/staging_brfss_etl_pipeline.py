@@ -1,12 +1,57 @@
 import json
 import pandas as pd
+from torch import chunk
 
 from config.brfss_value_map import brfss_value_map
 from database.connection import get_db_connection
-from extract import fetch_raw_data_map
+from extract import fetch_raw_data_map, validate_table_name
 from load import create_and_load_table, update_config_tables
 from transform import clean_column_names
 
+
+def determine_weight_measurement(weight):
+    """
+    Determine the weight measurement based on the weight value.
+    """
+    try:
+        if int(weight) <= 776:
+            return 'lbs'
+        elif 9023 <= int(weight) <= 9352:
+            return 'kg'
+        else:
+            return ''
+    except:
+        return ''
+
+def determine_height_measurement(height):
+    """
+    Determine the height measurement based on the height value.
+    """
+    try:
+        if int(height) <= 711:
+            return 'inches'
+        elif 9061 <= int(height) <= 9998:
+            return 'cm'
+        else:
+            return ''
+    except:
+        return ''
+
+def determine_alcday4_measurement(alcday4):
+    """
+    Determine the alcday4 measurement based on the alcday4 value.
+    Strip the prefixed digit from the alcday4 value if applicable.
+    """
+    try:
+        if 201 <= int(alcday4) <= 299:
+            return alcday4[1:], 'Days in past 30 days'
+        elif 101 <= int(alcday4) <= 199:
+            return alcday4[1:], 'Days per week'
+        else:
+            return alcday4, ''
+
+    except:
+        return alcday4, ''
 
 def run_staging_etl_pipeline(dataset: str) -> None:
     """
@@ -20,89 +65,93 @@ def run_staging_etl_pipeline(dataset: str) -> None:
     ---
     For the first chunk, replace the staging table:
 
-    if_exists="replace"
+    if_exists='replace'
 
     For later chunks, append:
 
-    if_exists="append"
-
-    Small table      → read all at once
-    Medium table     → pandas chunksize
-    Large table      → chunksize + SQL filtering
-    Very large table → consider SQL transformations, COPY, or a tool like dbt/Airflow
+    if_exists='append'
     """
     _, table_name = fetch_raw_data_map(dataset=dataset)
 
-    with open("config/allowed_tables.json") as f:
-        tables_config = json.load(f)
+    validate_table_name(table_name=table_name)
 
-    if table_name not in tables_config["ALLOWED_RAW_TABLES"]:
-        raise ValueError(f"Table '{table_name}' is not in the allowed list.")
+    engine = get_db_connection()
 
-    else:
-        engine = get_db_connection()
+    with engine.begin() as conn:
+        chunksize = 50000
 
-        with engine.connect() as conn:
-            chunksize = 50000
-            is_first_chunk = True
+        query = f"""SELECT "{'", "'.join(brfss_value_map.keys())}"
+                    FROM raw.{table_name}"""
 
-            query = f"""SELECT "{'", "'.join(brfss_value_map.keys())}"
-                      FROM raw.{table_name}"""
-            
-            print(f"TEST QUERY: {query}")
+        print(f'TEST QUERY: {query}')
 
-            for chunk_number, chunk in enumerate(pd.read_sql_query(sql=query, con=conn, chunksize=chunksize)):
-                print(f"TEST CHUNK NUMBER: {chunk_number}")
-                print(f"TEST CHUNK LENGTH: {len(chunk)}")
-                print(f"TEST CHUNK HEAD:\n{chunk.head(1)}")
-                
-                chunk = clean_column_names(df=chunk)
-                print(f"TEST CHUNK CLEANED COLUMNS:\n{chunk.columns}")
+        for chunk_number, chunk in enumerate(pd.read_sql_query(sql=query, con=conn, chunksize=chunksize), start=1):
+            if chunk_number == 2:
+                break
 
-                if is_first_chunk:
-                    # Replace the staging table with the first chunk
-                    print(f"TEST IS FIRST CHUNK: {is_first_chunk}")
-                    is_first_chunk = False
-                    
-                else:
-                    # Append subsequent chunks to the staging table
-                    print(f"TEST IS FIRST CHUNK: {is_first_chunk}")
-
-                #     cleaned_chunk = clean_chunk(chunk)
-
-                #     cleaned_chunk.to_sql(
-                #         staging_table,
-                #         engine,
-                #         schema="staging",
-                #         if_exists="replace" if first_chunk else "append",
-                #         index=False
-                #     )
-
-                #     first_chunk = False
-                #     print(f"Processed {len(cleaned_chunk)} rows")
+            print(f'TEST CHUNK NUMBER: {chunk_number}')
+            print(f'TEST CHUNK LENGTH: {len(chunk)}')
 
 
-                # Dataset-specific transforming logic
-                # df = pre_split_cleaning(df=df)
-                # df_dict = split_dataframe_by_code(df=df)
-
-                # Generic loading logic
-                # for df_name, df in df_dict.items():
-
-                #     create_and_load_table(
-                #         df=df,
-                #         table_name=TABLE_NAME_MAP.get(df_name, df_name),
-                #         schema="staging",
-                #         if_exists="replace"
-                #     )
-
-                #     # Update the allowed tables configuration
-                #     update_config_tables(table_name=TABLE_NAME_MAP.get(df_name, df_name), schema="staging")
-
-    print("Staging ETL pipeline completed.")
+            # Generic cleaning logic
 
 
-if __name__ == "__main__":
+            # Dataset-specific transforming logic
+            # Map values
+            valid_value_maps = {
+                key: value
+                for key, value in brfss_value_map.items()
+                if key in chunk.columns
+            }
+
+            chunk = chunk.replace(valid_value_maps)
+
+            chunk = clean_column_names(df=chunk)
+
+            # Combine ladult1 and cadult1
+            chunk['adult1'] = chunk['ladult1'].combine_first(chunk['cadult1'])
+            chunk = chunk.drop(columns=['ladult1', 'cadult1']).fillna("Not asked or missing")
+
+            # Combine landsex3 and cellsex3
+            chunk['sex3'] = chunk['landsex3'].combine_first(chunk['cellsex3'])
+            chunk = chunk.drop(columns=['landsex3', 'cellsex3']).fillna('Not asked or missing')
+
+            # Create column next to weight2 for measurement
+            chunk.insert(
+                loc=chunk.columns.get_loc('weight2') + 1,
+                column='weight2_measurement',
+                value=chunk['weight2'].apply(determine_weight_measurement)
+            )
+
+            # Create column next to height2 for measurement
+            chunk.insert(
+                loc=chunk.columns.get_loc('height2') + 1,
+                column='height2_measurement',
+                value=chunk['height2'].apply(determine_height_measurement)
+            )
+
+            # Create a column next to alcday4 to indicate the measurement
+            chunk[['alcday4', 'alcday4_measurement']] = chunk['alcday4'].apply(lambda x: pd.Series(determine_alcday4_measurement(x)))
+
+            print(f'TEST CHUNK SAMPLE:\n{chunk.sample(10)}')
+
+            chunk.to_sql(
+                name=table_name,
+                con=conn,
+                schema='staging',
+                if_exists='replace' if chunk_number == 1 else 'append',
+                index=False
+            )
+
+            print('----------')
+
+    # Update the allowed tables configuration
+    update_config_tables(table_name=table_name, schema='staging')
+
+    print('Staging ETL pipeline completed.')
+
+
+if __name__ == '__main__':
 
     DATASET = 'brfss'
 
@@ -110,4 +159,4 @@ if __name__ == "__main__":
         run_staging_etl_pipeline(dataset=DATASET)
 
     except Exception as e:
-        raise RuntimeError(f"Error during staging ETL pipeline: {e}")
+        raise RuntimeError(f'Error during staging ETL pipeline: {e}')

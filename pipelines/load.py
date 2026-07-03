@@ -25,13 +25,13 @@ def update_config_tables(table_name: str, schema: str) -> None:
     """
     Update the configuration file to include the new table name in the list of allowed tables.
     """
-    config_path = "config/allowed_tables.json"
+    config_path = 'config/allowed_tables.json'
 
-    with open(config_path, "r") as f:
+    with open(config_path, 'r') as f:
         tables_config = json.load(f)
 
     # Fetch the tables for the given schema
-    allowed_tables = tables_config[f"ALLOWED_{schema.upper()}_TABLES"]
+    allowed_tables = tables_config[f'ALLOWED_{schema.upper()}_TABLES']
 
     # Validate if the table name is already in the allowed list
     if table_name in allowed_tables:
@@ -43,7 +43,7 @@ def update_config_tables(table_name: str, schema: str) -> None:
         allowed_tables.sort()
 
         # Update the configuration file with the new allowed list
-        with open(config_path, "w") as f:
+        with open(config_path, 'w') as f:
             json.dump(tables_config, f, indent=4)
 
         print(f"Table '{table_name}' added to the allowed list.")

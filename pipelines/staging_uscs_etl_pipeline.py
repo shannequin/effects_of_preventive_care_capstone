@@ -13,29 +13,29 @@ def create_additional_fields(df: pd.DataFrame) -> pd.DataFrame:
     source_file_split = df['source_file'].str.split('_', expand=True)
 
     # Create a statistic type field and populate it with source_file_split column 0 (replace dash with space)
-    df['statistic_type'] = source_file_split.iloc[:, 0].str.replace("-", " ")
+    df['statistic_type'] = source_file_split.iloc[:, 0].str.replace('-', ' ')
 
-    print("Field created and populated: statistic_type")
+    print('Field created and populated: statistic_type')
 
     # Group by statistic_type and create a cancer_type field based on the source_file column.
     df['cancer_type'] = source_file_split.apply(
-        lambda row: row[2].replace("-", " ") if "united-states" in row[1] else row[1].replace("-", " "), axis=1
+        lambda row: row[2].replace('-', ' ') if 'united-states' in row[1] else row[1].replace('-', ' '), axis=1
     )
 
-    print("Field created and populated: cancer_type")
+    print('Field created and populated: cancer_type')
 
     # Create a year field based on the uscs_year_map, but don't overwrite existing values
     uscs_year_map = {
-        "uscs incidence chart": "2018-2022",
-        "uscs mortality chart": "2019-2023",
-        "uscs preliminary estimates chart": "2022",
-        "uscs prevalence chart": "2017-2022",
-        "uscs stage at diagnosis chart": "2018-2022",
+        'uscs incidence chart': '2018-2022',
+        'uscs mortality chart': '2019-2023',
+        'uscs preliminary estimates chart': '2022',
+        'uscs prevalence chart': '2017-2022',
+        'uscs stage at diagnosis chart': '2018-2022',
     }
     mapped_year = df["statistic_type"].map(uscs_year_map)
     df.loc[mapped_year.notna(), "year"] = mapped_year
 
-    print("Field created and populated: year")
+    print('Field created and populated: year')
 
     return df
 
@@ -47,9 +47,9 @@ def fill_missing_sex_values(df: pd.DataFrame) -> pd.DataFrame:
 
     # Fill in missing sex values based on the source_file column and the sex_map
     sex_map = {
-        "male-and-female": "Male and Female",
-        "female": "Female",
-        "male": "Male"
+        'male-and-female': 'Male and Female',
+        'female': 'Female',
+        'male': 'Male'
     }
 
     for k, v in sex_map.items():
@@ -60,7 +60,7 @@ def fill_missing_sex_values(df: pd.DataFrame) -> pd.DataFrame:
 
         df.loc[mask, 'sex'] = v
 
-        print(f"Number of rows to be updated to {v}: {mask.sum()}")
+        print(f'Number of rows to be updated to {v}: {mask.sum()}')
 
     return df
 
@@ -71,31 +71,31 @@ def split_dataframe_by_statistic_type(df: pd.DataFrame) -> dict:
     Returns a dictionary of dataframes with statistic_type as keys.
     """
     # Split the dataframe into a dictionary of dataframes based on the statistic type
-    df_dict = {"_".join(stat_type.split()).lower(): sub_df for stat_type, sub_df in df.groupby('statistic_type')}
+    df_dict = {'_'.join(stat_type.split()).lower(): sub_df for stat_type, sub_df in df.groupby('statistic_type')}
 
     for stat_type, df in df_dict.items():
         # Drop unnecessary columns
-        df = df.drop(columns="source_file")
+        df = df.drop(columns=['source_file'])
         df = df.dropna(axis=1, how='all')
 
         # Set list of keywords for columns needing a data type conversion
-        column_map = ["count", "population"]
+        column_map = ['count', 'population']
 
         for col in df.columns:
             # Find column names containing any of the keywords
             if any(keyword in col.lower() for keyword in column_map):
                 # Convert column data type to an int
-                df[col] = df[col].astype("Int64")
+                df[col] = df[col].astype('Int64')
 
         # Sort columns
-        first_cols = ["statistic_type", "cancer_type", "sex"]
+        first_cols = ['statistic_type', 'cancer_type', 'sex']
         remaining_cols = [col for col in df.columns if col not in first_cols]
         df = df[first_cols + remaining_cols]
 
         # Update the dataframe dictionary
         df_dict[stat_type] = df
 
-    print(f"Dataframe split into {len(df_dict)} dataframes based on statistic_type.")
+    print(f'Dataframe split into {len(df_dict)} dataframes based on statistic_type.')
 
     return df_dict
 
@@ -121,17 +121,17 @@ def run_staging_etl_pipeline(dataset: str) -> None:
         create_and_load_table(
             df=df,
             table_name=df_name,
-            schema="staging",
-            if_exists="replace"
+            schema='staging',
+            if_exists='replace'
         )
 
         # Update the allowed tables configuration
-        update_config_tables(table_name=df_name, schema="staging")
+        update_config_tables(table_name=df_name, schema='staging')
 
-    print("Staging ETL pipeline completed.")
+    print('Staging ETL pipeline completed.')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
 
     DATASET = 'uscs'
 
@@ -139,4 +139,4 @@ if __name__ == "__main__":
         run_staging_etl_pipeline(dataset=DATASET)
 
     except Exception as e:
-        raise RuntimeError(f"Error during staging ETL pipeline: {e}")
+        raise RuntimeError(f'Error during staging ETL pipeline: {e}')

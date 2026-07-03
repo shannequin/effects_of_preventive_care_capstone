@@ -6,6 +6,7 @@
     ],
     "ALLOWED_STAGING_TABLES": [
         "ahs01_health_insurance",
+        "behavioral_risk_factor_surveillance_system",
         "c05_breast_cancer_screenings",
         "c07_colorectal_cancer_screenings",
         "c09_cervical_cancer_screenings",

@@ -6,24 +6,24 @@ def create_schemas(conn) -> None:
     """
     Create database schemas if they do not already exist.
     """
-    conn.execute(text("CREATE SCHEMA IF NOT EXISTS raw"))
-    conn.execute(text("CREATE SCHEMA IF NOT EXISTS staging"))
-    conn.execute(text("CREATE SCHEMA IF NOT EXISTS core"))
+    conn.execute(text('CREATE SCHEMA IF NOT EXISTS raw'))
+    conn.execute(text('CREATE SCHEMA IF NOT EXISTS staging'))
+    conn.execute(text('CREATE SCHEMA IF NOT EXISTS core'))
 
 def create_tables(conn, table_name: str) -> None:
     """
     Create database tables if they do not already exist.
     """
-    conn.execute(text(f"""
+    conn.execute(text(f'''
         CREATE TABLE IF NOT EXISTS staging.{table_name} (
             raw_id BIGSERIAL PRIMARY KEY,
             source_file TEXT,
             ingested_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
             payload JSONB NOT NULL
         )
-    """))
+    '''))
 
-    conn.execute(text(f"""
+    conn.execute(text(f'''
         CREATE TABLE IF NOT EXISTS core.{table_name} (
             ingestion_id BIGSERIAL PRIMARY KEY,
             source_name TEXT NOT NULL,
@@ -31,12 +31,12 @@ def create_tables(conn, table_name: str) -> None:
             completed_at TIMESTAMPTZ,
             status TEXT NOT NULL
         )
-    """))
+    '''))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
 
-    TABLE_NAME = "" #"cdc_us_cancer_statistics"
+    TABLE_NAME = '' #'cdc_us_cancer_statistics'
 
     try:
         engine = get_db_connection()
@@ -50,4 +50,4 @@ if __name__ == "__main__":
                 create_tables(conn, TABLE_NAME)
 
     except Exception as e:
-        raise RuntimeError(f"Error during database setup: {e}")
+        raise RuntimeError(f'Error during database setup: {e}')

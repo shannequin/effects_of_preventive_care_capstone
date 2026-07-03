@@ -15,17 +15,17 @@ def run_raw_etl_pipeline(dataset: str) -> None:
     create_and_load_table(
         df=df,
         table_name=table_name,
-        schema="raw",
-        if_exists="replace"
+        schema='raw',
+        if_exists='replace'
     )
 
     # Update the allowed tables configuration
-    update_config_tables(table_name=table_name, schema="raw")
+    update_config_tables(table_name=table_name, schema='raw')
 
-    print("Raw ETL pipeline completed.")
+    print('Raw ETL pipeline completed.')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
 
     DATASET = 'nhis' # uscs, nhis
 
@@ -33,4 +33,4 @@ if __name__ == "__main__":
         run_raw_etl_pipeline(dataset=DATASET)
 
     except Exception as e:
-        raise RuntimeError(f"Error during raw ETL pipeline: {e}")
+        raise RuntimeError(f'Error during raw ETL pipeline: {e}')

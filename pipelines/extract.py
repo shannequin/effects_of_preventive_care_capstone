@@ -10,7 +10,7 @@ def fetch_raw_data_map(dataset: str) -> json:
     """
     Fetch the path and table name for the given dataset.
     """
-    with open("config/raw_data_map.json") as f:
+    with open('config/raw_data_map.json') as f:
         raw_data_map = json.load(f)
 
     path = raw_data_map[dataset].get('path')
@@ -33,11 +33,11 @@ def extract_from_csv_files(path: str) -> list:
             df['source_file'] = file.name
             df_list.append(df)
 
-        print(f"Extracted data from {len(df_list)} files.")
+        print(f'Extracted data from {len(df_list)} files.')
 
         df = pd.concat(df_list, ignore_index=True)
 
-        print(f"Merged dataframes into a single dataframe with shape: {df.shape}")
+        print(f'Merged dataframes into a single dataframe with shape: {df.shape}')
 
         return df
 
@@ -45,24 +45,24 @@ def fetch_asc_column_map(dataset: str) -> json:
     """
     Fetch the asc column map for the given dataset.
     """
-    with open(f"config/{dataset}_column_map.json") as f:
+    with open(f'config/{dataset}_column_map.json') as f:
         return json.load(f)
 
 def extract_all_from_raw(table_name: str) -> pd.DataFrame:
     """
     Extract all records from the specified table in the raw schema of the database.
     """
-    with open("config/allowed_tables.json") as f:
+    with open('config/allowed_tables.json') as f:
         tables_config = json.load(f)
 
-    if table_name not in tables_config["ALLOWED_RAW_TABLES"]:
+    if table_name not in tables_config['ALLOWED_RAW_TABLES']:
         raise ValueError(f"Table '{table_name}' is not in the allowed list.")
 
     else:
         engine = get_db_connection()
 
         with engine.begin() as conn:
-            query = text(f"SELECT * FROM raw.{table_name}")
+            query = text(f'SELECT * FROM raw.{table_name}')
             df = pd.read_sql_query(query, conn)
 
         print(f"Extracted {len(df)} records from 'raw.{table_name}'")

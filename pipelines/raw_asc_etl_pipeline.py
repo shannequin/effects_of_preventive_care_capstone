@@ -33,8 +33,8 @@ def extract_map_load_asc(path: str, table_name: str, dataset: str):
                     df.to_sql(
                         name=table_name,
                         con=conn,
-                        schema="raw",
-                        if_exists="append",
+                        schema='raw',
+                        if_exists='append',
                         index=False
                     )
 
@@ -50,12 +50,12 @@ def run_raw_etl_pipeline(dataset: str) -> None:
     extract_map_load_asc(path=path, table_name=table_name, dataset=dataset)
 
     # Update the allowed tables configuration
-    update_config_tables(table_name=table_name, schema="raw")
+    update_config_tables(table_name=table_name, schema='raw')
 
-    print("Raw ETL pipeline completed.")
+    print('Raw ETL pipeline completed.')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
 
     DATASET = 'brfss'
 
@@ -63,4 +63,4 @@ if __name__ == "__main__":
         run_raw_etl_pipeline(dataset=DATASET)
 
     except Exception as e:
-        raise RuntimeError(f"Error during raw ETL pipeline: {e}")
+        raise RuntimeError(f'Error during raw ETL pipeline: {e}')
