@@ -123,15 +123,17 @@ def run_staging_etl_pipeline(dataset: str) -> None:
                 value=chunk['weight2'].apply(determine_weight_measurement)
             )
 
-            # Create column next to height2 for measurement
+            # Create column next to height3 for measurement
             chunk.insert(
-                loc=chunk.columns.get_loc('height2') + 1,
-                column='height2_measurement',
-                value=chunk['height2'].apply(determine_height_measurement)
+                loc=chunk.columns.get_loc('height3') + 1,
+                column='height3_measurement',
+                value=chunk['height3'].apply(determine_height_measurement)
             )
 
             # Create a column next to alcday4 to indicate the measurement
-            chunk[['alcday4', 'alcday4_measurement']] = chunk['alcday4'].apply(lambda x: pd.Series(determine_alcday4_measurement(x)))
+            chunk[['alcday4', 'alcday4_measurement']] = chunk['alcday4'].apply(
+                lambda x: pd.Series(determine_alcday4_measurement(x))
+            )
 
             print(f'TEST CHUNK SAMPLE:\n{chunk.sample(10)}')
 

@@ -6,6 +6,16 @@ from sqlalchemy import text
 from database.connection import get_db_connection
 
 
+def validate_table_name(table_name: str) -> None:
+    """
+    Validate that the given table name is in the list of allowed raw tables.
+    """
+    with open('config/allowed_tables.json') as f:
+        tables_config = json.load(f)
+
+    if table_name not in tables_config['ALLOWED_RAW_TABLES']:
+        raise ValueError(f"Table '{table_name}' is not in the allowed list.")
+
 def fetch_raw_data_map(dataset: str) -> json:
     """
     Fetch the path and table name for the given dataset.
@@ -52,19 +62,14 @@ def extract_all_from_raw(table_name: str) -> pd.DataFrame:
     """
     Extract all records from the specified table in the raw schema of the database.
     """
-    with open('config/allowed_tables.json') as f:
-        tables_config = json.load(f)
+    validate_table_name(table_name=table_name)
 
-    if table_name not in tables_config['ALLOWED_RAW_TABLES']:
-        raise ValueError(f"Table '{table_name}' is not in the allowed list.")
+    engine = get_db_connection()
 
-    else:
-        engine = get_db_connection()
+    with engine.begin() as conn:
+        query = text(f'SELECT * FROM raw.{table_name}')
+        df = pd.read_sql_query(query, conn)
 
-        with engine.begin() as conn:
-            query = text(f'SELECT * FROM raw.{table_name}')
-            df = pd.read_sql_query(query, conn)
+    print(f"Extracted {len(df)} records from 'raw.{table_name}'")
 
-        print(f"Extracted {len(df)} records from 'raw.{table_name}'")
-
-        return df
+    return df
