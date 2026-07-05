@@ -6,8 +6,8 @@ brfss_value_map = {
         "04": "Arizona",
         "05": "Arkansas",
         "06": "California",
-        "07": "Colorado",
-        "08": "Connecticut",
+        "08": "Colorado",
+        "09": "Connecticut",
         "10": "Delaware",
         "11": "District of Columbia",
         "12": "Florida",
@@ -108,7 +108,7 @@ brfss_value_map = {
         "88": "None",
         "77": "Don't know or not sure",
         "99": "Refused",
-        "null": "Not asked or missing"
+        None: "Not asked or missing"
     },
     "MENTHLTH": {
         "Question": "Now thinking about your mental health, which includes stress, depression, and problems with emotions, for how many days during the past 30 days was your mental health not good?",
@@ -168,14 +168,6 @@ brfss_value_map = {
         "4": "5 or more years ago",
         "7": "Don't know or not sure",
         "8": "Never",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "EXERANY2": {
-        "Question": "During the past month, other than your regular job, did you participate in any physical activities or exercises such as running, calisthenics, golf, gardening, or walking for exercise?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
         "9": "Refused",
         "null": "Not asked or missing"
     },
@@ -241,14 +233,6 @@ brfss_value_map = {
         "9": "Refused",
         "null": "Not asked or missing"
     },
-    "VETERAN3": {
-        "Question": "Have you ever served on active duty in the United States Armed Forces, either in the regular military or in a National Guard or military reserve unit?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
     "EMPLOY1": {
         "Question": "Are you currently?",
         "1": "Employed for wages",
@@ -277,14 +261,6 @@ brfss_value_map = {
         "11": "$200,000 or more",
         "77": "Don't know or not sure",
         "99": "Refused",
-        "null": "Not asked or missing"
-    },
-    "PREGNANT": {
-        "Question": "To your knowledge, are you now pregnant?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
         "null": "Not asked or missing"
     },
     "WEIGHT2": {
@@ -488,57 +464,6 @@ brfss_value_map = {
         "9": "Refused",
         "null": "Not asked or missing"
     },
-    "SMOKE100": {
-        "Question": "Have you smoked at least 100 cigarettes in your entire life?", # [Note:  5 packs = 100 cigarettes]
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "SMOKDAY2": {
-        "Question": "Do you now smoke cigarettes every day, some days, or not at all?",
-        "1": "Every day",
-        "2": "Some days",
-        "3": "Not at all",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "USENOW3": {
-        "Question": "Do you currently use chewing tobacco, snuff, or snus every day, some days, or not at all?", # (Snus (Swedish for snuff) is a moist smokeless tobacco, usually sold in small pouches that are placed under the lip against the gum.)
-        "1": "Every day",
-        "2": "Some days",
-        "3": "Not at all",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "ECIGNOW3": {
-        "Question": "Would you say you have never used e-cigarettes or other electronic vaping products in your entire life or now use them every day, use them some days, or used them in the past but do not currently use them at all?",
-        "1": "Never used e-cigarettes in your entire life",
-        "2": "Use them every day",
-        "3": "Use them some days",
-        "4": "Used them in the past but do not currently use them at all",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "LCSFIRST": {
-        "Question": "How old were you when you first started to smoke cigarettes regularly?",
-        "1-100": "Age in Years",
-        "777": "Don't know or not sure",
-        "888": "Never smoked cigarettes regularly",
-        "999": "Refused",
-        "null": "Not asked or missing"
-    },
-    "LCSNUMCG": {
-        "Question": "On average, when you {smoke/smoked} regularly, about how many cigarettes {do/did} you usually smoke each day?",
-        "1-300": "Number of cigarettes",
-        "777": "Don't know or not sure",
-        "999": "Refused",
-        "null": "Not asked or missing"
-    },
     "LCSCTSC1": {
         "Question": "Have you ever had a CT or CAT scan of your chest area?",
         "1": "Yes",
@@ -565,41 +490,6 @@ brfss_value_map = {
         "6": "10 or more years ago",
         "7": "Don't know or not sure",
         "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "ALCDAY4": {
-        "Question": "During the past 30 days, how many days per week or per month did you have at least one drink of any alcoholic beverage?", # (A 40 ounce beer would count as 3 drinks, or a cocktail drink with 2 shots would count as 2 drinks.)
-        "100": "1",
-        "101-199": "Days per week",
-        "201-299": "Days in past 30 days",
-        "777": "Don't know or not sure",
-        "888": "No drinks in past 30 days",
-        "999": "Refused",
-        "null": "Not asked or missing"
-    },
-    "AVEDRNK4": {
-        "Question": "During the past 30 days, on the days when you drank, about how many drinks did you drink on the average?", # (A 40 ounce beer would count as 3 drinks, or a cocktail drink with 2 shots would count as 2 drinks.)
-        "1-76": "Number of drinks",
-        "88": "None",
-        "77": "Don't know or not sure",
-        "99": "Refused",
-        "null": "Not asked or missing"
-    },
-    "DRNK3GE5": {
-        "Question": "Considering all types of alcoholic beverages, how many times during the past 30 days did you have 5 or more drinks for men or 4 or more drinks for women on an occasion?",
-        "1-76": "Number of Times",
-        "88": "None",
-        "77": "Don't know or not sure",
-        "99": "Refused",
-        "null": "Not asked or missing"
-    },
-    "MAXDRNKS": {
-        "Question": "During the past 30 days, what is the largest number of drinks you had on any occasion?",
-        "0": "",
-        "1-76": "Number of drinks",
-        "88": "Invalid response",
-        "77": "Don't know or not sure",
-        "99": "Refused",
         "null": "Not asked or missing"
     },
     "FLUSHOT7": {
@@ -886,28 +776,6 @@ brfss_value_map = {
         "9": "Refused",
         "null": "Not asked or missing"
     },
-    "EMTSUPRT": {
-        "Question": "How often do you get the social and emotional support you need?",
-        "1": "Always",
-        "2": "Usually",
-        "3": "Sometimes",
-        "4": "Rarely",
-        "5": "Never",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "SDLONELY": {
-        "Question": "How often do you feel lonely?",
-        "1": "Always",
-        "2": "Usually",
-        "3": "Sometimes",
-        "4": "Rarely",
-        "5": "Never",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
     "SDHEMPLY": {
         "Question": "In the past 12 months have you lost employment or had hours reduced?",
         "1": "Yes",
@@ -953,110 +821,6 @@ brfss_value_map = {
     },
     "SDHTRNSP": {
         "Question": "During the past 12 months has a lack of reliable transportation kept you from medical appointments, meetings, work, or from getting things needed for daily living?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "HOWSAFE1": {
-        "Question": "How safe from crime do you consider your neighborhood to be? Would you say:",
-        "1": "Extremely safe",
-        "2": "Safe",
-        "3": "Unsafe",
-        "4": "Extremely unsafe",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "MARIJAN1": {
-        "Question": "During the past 30 days, on how many days did you use marijuana or cannabis?",
-        "1-30": "Number of Days",
-        "88": "None",
-        "77": "Don't know or not sure",
-        "99": "Refused",
-        "null": "Not asked or missing"
-    },
-    "MARJSMOK": {
-        "Question": "During the past 30 days, did you smoke it (for example, in a joint, bong, pipe, or blunt)?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "MARJEAT": {
-        "Question": "Did you eat it or drink it (for example, in brownies, cakes, cookies, or candy, or in tea, cola, or alcohol)?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "MARJVAPE": {
-        "Question": "Did you vaporize it (for example, in an e-cigarette-like vaporizer or another vaporizing device)?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "MARJDAB": {
-        "Question": "Did you dab it (for example, using a dabbing rig, knife, or dab pen)?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "MARJOTHR": {
-        "Question": "Did you use it in some other way?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "LASTSMK2": {
-        "Question": "How long has it been since you last smoked a cigarette, even one or two puffs?",
-        "1": "Within the past month (less than 1 month ago)",
-        "2": "Within the past 3 months (1 month but less than 3 months ago)",
-        "3": "Within the past 6 months (3 months but less than 6 months ago)",
-        "4": "Within the past year (6 months but less than 1 year ago)",
-        "5": "Within the past 5 years (1 year but less than 5 years ago)",
-        "6": "Within the past 10 years (5 years but less than 10 years ago)",
-        "7": "10 years or more",
-        "8": "Never smoked regularly",
-        "77": "Don't know or not sure",
-        "99": "Refused",
-        "null": "Not asked or missing"
-    },
-    "STOPSMK2": {
-        "Question": "During the past 12 months, have you stopped smoking for one day or longer because you were trying to quit smoking?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "MENTCIGS": {
-        "Question": "Currently, when you smoke cigarettes, do you usually smoke menthol cigarettes?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "MENTECIG": {
-        "Question": "Currently, when you use e-cigarettes, do you usually use menthol e-cigarettes?",
-        "1": "Yes",
-        "2": "No",
-        "7": "Don't know or not sure",
-        "9": "Refused",
-        "null": "Not asked or missing"
-    },
-    "HEATTBCO": {
-        "Question": "Before today, have you heard of heated tobacco products?",
         "1": "Yes",
         "2": "No",
         "7": "Don't know or not sure",
