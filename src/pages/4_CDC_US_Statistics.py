@@ -1,0 +1,37 @@
+import json
+import streamlit as st
+
+
+st.title("CDC US Statistics")
+
+st.sidebar.title("Table Selection")
+config_path = 'config/allowed_tables.json'
+
+with open(config_path, 'r') as f:
+    tables_config = json.load(f)
+
+# Fetch the tables for the given schema
+allowed_tables = tables_config['ALLOWED_STAGING_TABLES']
+
+selected_table = st.sidebar.selectbox(label='Select a table:', index=None, placeholder='None', options=tables_config['ALLOWED_STAGING_TABLES'], )
+
+if selected_table is not None:
+    if selected_table not in allowed_tables:
+        st.error("Selected table is not allowed.")
+        st.stop()
+
+    # Initialize connection.
+    conn = st.connection("postgresql", type="sql")
+
+    column_query = f"""SELECT column_name
+                        FROM information_schema.columns
+                        WHERE table_schema = 'staging'
+                        AND table_name = '{selected_table}';"""
+
+    table_column_names = conn.query(sql=column_query)['column_name'].tolist()
+
+    selected_columns = st.sidebar.multiselect(label='Select one or more columns', options=table_column_names)    
+
+    query = f"""SELECT {','.join(selected_columns)} FROM staging.{selected_table};"""
+
+    df = conn.query(sql=query)
