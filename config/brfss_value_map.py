@@ -502,7 +502,7 @@ brfss_value_map = {
     },
     "FLSHTMY3": {
         "Question": "During what month and year did you receive your most recent flu vaccine that was sprayed in your nose or flu shot injected into your arm?",
-        "12023 - 122024": "Month / Year",
+        "012023 - 122024": "Month / Year",
         "777777": "Don't know or not sure",
         "999999": "Refused",
         "null": "Not asked or missing"
@@ -543,7 +543,7 @@ brfss_value_map = {
     },
     "HIVTSTD3": {
         "Question": "Not including blood donations, in what month and year was your last H.I.V. test?", # (If response is before January 1985, code '777777'.)
-        "12023 - 122025": "Month / Year",
+        "012023 - 122025": "Month / Year",
         "777777": "Don't know or not sure",
         "999999": "Refused",
         "null": "Not asked or missing"
@@ -849,8 +849,8 @@ brfss_value_map = {
     },
     "QSTLANG": {
         "Question": "Language identifier",
-        "1": "English",
-        "2": "Spanish",
+        "01": "English",
+        "02": "Spanish",
         "null": "Not asked or missing"
     },
     "_METSTAT": {

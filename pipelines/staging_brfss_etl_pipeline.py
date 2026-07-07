@@ -8,6 +8,16 @@ from load import update_config_tables
 from transform import clean_column_names
 
 
+SCHEMA = 'staging'
+
+def transform_idate(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Transform the idate column to a standard format.
+    """
+    df['idate'] = pd.to_datetime(df['idate'], format='%m%d%Y', errors='coerce').dt.strftime('%m-%d-%Y')
+
+    return df
+
 def transform_adult1(df: pd.DataFrame) -> pd.DataFrame:
     """
     Create adult1 column by combining ladult1 and cadult1.
@@ -110,6 +120,31 @@ def transform_height3(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
+def transform_flshtmy3(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Transform the flshtmy3 column to a standard format.
+    """
+    df['flshtmy3'] = pd.to_datetime(df['flshtmy3'], format='%m%Y', errors='coerce').dt.strftime('%m-%Y')
+
+    return df
+
+def transform_hivtstd3(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Transform the hivtstd3 column to a standard format.
+    """
+    df['hivtstd3'] = pd.to_datetime(df['hivtstd3'], format='%m%Y', errors='coerce').dt.strftime('%m-%Y')
+
+    return df
+
+def transform_missing_values(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Transform missing values to a standard format.
+    """
+    df = df.replace(r'^\s*$', pd.NA, regex=True)
+    df = df.replace(r'^(?i:na|nan|none|null)$', pd.NA, regex=True)
+
+    return df
+
 def run_staging_etl_pipeline(dataset: str) -> None:
     """
     Run the staging ETL pipeline for the specified dataset.
@@ -120,10 +155,7 @@ def run_staging_etl_pipeline(dataset: str) -> None:
     validate_table_name(table_name=table_name)
 
     query = f"""SELECT "{'", "'.join(brfss_value_map.keys())}"
-                    FROM raw.{table_name}"""
-
-    print(f'TEST QUERY:')
-    print(query)
+                FROM raw.{table_name}"""
 
     CHUNKSIZE = 50000
 
@@ -132,9 +164,6 @@ def run_staging_etl_pipeline(dataset: str) -> None:
     with engine.begin() as conn:
 
         for chunk_number, chunk in enumerate(pd.read_sql_query(sql=query, con=conn, chunksize=CHUNKSIZE), start=1):
-            if chunk_number == 2:
-                break
-
             print(f'TEST CHUNK NUMBER: {chunk_number}')
             print(f'TEST CHUNK LENGTH: {len(chunk)}')
 
@@ -150,22 +179,21 @@ def run_staging_etl_pipeline(dataset: str) -> None:
             chunk = clean_column_names(chunk)
 
             # Transform columns
-            chunk['idate'] = pd.to_datetime(chunk['idate'], format='%m%d%Y', errors='coerce')
+            chunk = transform_idate(chunk)
             chunk = transform_adult1(chunk)
             chunk = transform_sex3(chunk)
             chunk = transform_weight2(chunk)
             chunk = transform_height3(chunk)
-
-            # Normalize missing values
-            chunk = chunk.replace(r'^\s*$', pd.NA, regex=True)
-            chunk = chunk.replace(r'^(?i:na|nan|none|null)$', pd.NA, regex=True)
+            chunk = transform_flshtmy3(chunk)
+            chunk = transform_hivtstd3(chunk)
+            chunk = transform_missing_values(chunk)
 
             print(f'TEST CHUNK SAMPLE:\n{chunk.sample(10)}')
 
             chunk.to_sql(
                 name=table_name,
                 con=conn,
-                schema='staging',
+                schema=SCHEMA,
                 if_exists='replace' if chunk_number == 1 else 'append',
                 index=False
             )
@@ -181,16 +209,16 @@ def run_staging_etl_pipeline(dataset: str) -> None:
         questions_df.to_sql(
             name=f'{table_name}_questions',
             con=conn,
-            schema='staging',
+            schema=SCHEMA,
             if_exists='replace',
             index=False
         )
 
     # Update the allowed tables configuration
-    update_config_tables(table_name=table_name, schema='staging')
-    update_config_tables(table_name=f'{table_name}_questions', schema='staging')
+    update_config_tables(table_name=table_name, schema=SCHEMA)
+    update_config_tables(table_name=f'{table_name}_questions', schema=SCHEMA)
 
-    print('Staging ETL pipeline completed.')
+    print(f'{SCHEMA} ETL pipeline completed.')
 
 
 if __name__ == '__main__':
@@ -201,4 +229,4 @@ if __name__ == '__main__':
         run_staging_etl_pipeline(dataset=DATASET)
 
     except Exception as e:
-        raise RuntimeError(f'Error during staging ETL pipeline: {e}')
+        raise RuntimeError(f'Error during {SCHEMA} ETL pipeline: {e}')
