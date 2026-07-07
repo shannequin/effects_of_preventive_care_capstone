@@ -1,0 +1,866 @@
+{
+    "_STATE": {
+        "column": 1,
+        "length": 2
+    },
+    "FMONTH": {
+        "column": 17,
+        "length": 2
+    },
+    "IDATE": {
+        "column": 19,
+        "length": 8
+    },
+    "IMONTH": {
+        "column": 19,
+        "length": 2
+    },
+    "IDAY": {
+        "column": 21,
+        "length": 2
+    },
+    "IYEAR": {
+        "column": 23,
+        "length": 4
+    },
+    "DISPCODE": {
+        "column": 32,
+        "length": 4
+    },
+    "SEQNO": {
+        "column": 36,
+        "length": 10
+    },
+    "_PSU": {
+        "column": 46,
+        "length": 10
+    },
+    "CTELENM1": {
+        "column": 63,
+        "length": 1
+    },
+    "PVTRESD1": {
+        "column": 64,
+        "length": 1
+    },
+    "COLGHOUS": {
+        "column": 65,
+        "length": 1
+    },
+    "STATERE1": {
+        "column": 66,
+        "length": 1
+    },
+    "CELPHON1": {
+        "column": 67,
+        "length": 1
+    },
+    "LADULT1": {
+        "column": 68,
+        "length": 1
+    },
+    "NUMADULT": {
+        "column": 69,
+        "length": 2
+    },
+    "RESPSLC1": {
+        "column": 71,
+        "length": 1
+    },
+    "LANDSEX3": {
+        "column": 72,
+        "length": 1
+    },
+    "SAFETIME": {
+        "column": 74,
+        "length": 1
+    },
+    "CTELNUM1": {
+        "column": 75,
+        "length": 1
+    },
+    "CELLFON5": {
+        "column": 76,
+        "length": 1
+    },
+    "CADULT1": {
+        "column": 77,
+        "length": 1
+    },
+    "CELLSEX3": {
+        "column": 78,
+        "length": 1
+    },
+    "PVTRESD3": {
+        "column": 80,
+        "length": 1
+    },
+    "CCLGHOUS": {
+        "column": 81,
+        "length": 1
+    },
+    "CSTATE1": {
+        "column": 82,
+        "length": 1
+    },
+    "LANDLINE": {
+        "column": 85,
+        "length": 1
+    },
+    "HHADULT": {
+        "column": 86,
+        "length": 2
+    },
+    "SEXVAR": {
+        "column": 88,
+        "length": 1
+    },
+    "GENHLTH": {
+        "column": 101,
+        "length": 1
+    },
+    "PHYSHLTH": {
+        "column": 102,
+        "length": 2
+    },
+    "MENTHLTH": {
+        "column": 104,
+        "length": 2
+    },
+    "POORHLTH": {
+        "column": 106,
+        "length": 2
+    },
+    "PRIMINS2": {
+        "column": 108,
+        "length": 2
+    },
+    "PERSDOC3": {
+        "column": 110,
+        "length": 1
+    },
+    "MEDCOST1": {
+        "column": 111,
+        "length": 1
+    },
+    "CHECKUP1": {
+        "column": 112,
+        "length": 1
+    },
+    "EXERANY2": {
+        "column": 113,
+        "length": 1
+    },
+    "LASTDEN4": {
+        "column": 116,
+        "length": 1
+    },
+    "RMVTETH4": {
+        "column": 117,
+        "length": 1
+    },
+    "CVDINFR4": {
+        "column": 138,
+        "length": 1
+    },
+    "CVDCRHD4": {
+        "column": 139,
+        "length": 1
+    },
+    "CVDSTRK3": {
+        "column": 140,
+        "length": 1
+    },
+    "ASTHMA3": {
+        "column": 141,
+        "length": 1
+    },
+    "ASTHNOW": {
+        "column": 142,
+        "length": 1
+    },
+    "CHCSCNC1": {
+        "column": 143,
+        "length": 1
+    },
+    "CHCOCNC1": {
+        "column": 144,
+        "length": 1
+    },
+    "CHCCOPD3": {
+        "column": 145,
+        "length": 1
+    },
+    "ADDEPEV3": {
+        "column": 146,
+        "length": 1
+    },
+    "CHCKDNY2": {
+        "column": 147,
+        "length": 1
+    },
+    "HAVARTH4": {
+        "column": 148,
+        "length": 1
+    },
+    "DIABETE4": {
+        "column": 149,
+        "length": 1
+    },
+    "DIABAGE4": {
+        "column": 150,
+        "length": 2
+    },
+    "MARITAL": {
+        "column": 186,
+        "length": 1
+    },
+    "EDUCA": {
+        "column": 187,
+        "length": 1
+    },
+    "RENTHOM1": {
+        "column": 188,
+        "length": 1
+    },
+    "NUMHHOL4": {
+        "column": 197,
+        "length": 1
+    },
+    "NUMPHON4": {
+        "column": 198,
+        "length": 1
+    },
+    "CPDEMO1C": {
+        "column": 199,
+        "length": 1
+    },
+    "VETERAN3": {
+        "column": 200,
+        "length": 1
+    },
+    "EMPLOY1": {
+        "column": 201,
+        "length": 1
+    },
+    "CHILDREN": {
+        "column": 202,
+        "length": 2
+    },
+    "INCOME3": {
+        "column": 204,
+        "length": 2
+    },
+    "PREGNANT": {
+        "column": 206,
+        "length": 1
+    },
+    "WEIGHT2": {
+        "column": 207,
+        "length": 4
+    },
+    "HEIGHT3": {
+        "column": 211,
+        "length": 4
+    },
+    "DEAF": {
+        "column": 215,
+        "length": 1
+    },
+    "BLIND": {
+        "column": 216,
+        "length": 1
+    },
+    "DECIDE": {
+        "column": 217,
+        "length": 1
+    },
+    "DIFFWALK": {
+        "column": 218,
+        "length": 1
+    },
+    "DIFFDRES": {
+        "column": 219,
+        "length": 1
+    },
+    "DIFFALON": {
+        "column": 220,
+        "length": 1
+    },
+    "HADMAM": {
+        "column": 221,
+        "length": 1
+    },
+    "HOWLONG": {
+        "column": 222,
+        "length": 1
+    },
+    "CERVSCRN": {
+        "column": 223,
+        "length": 1
+    },
+    "CRVCLCNC": {
+        "column": 224,
+        "length": 1
+    },
+    "CRVCLPAP": {
+        "column": 225,
+        "length": 1
+    },
+    "CRVCLHPV": {
+        "column": 226,
+        "length": 1
+    },
+    "HADHYST2": {
+        "column": 227,
+        "length": 1
+    },
+    "HADSIGM4": {
+        "column": 228,
+        "length": 1
+    },
+    "COLNSIGM": {
+        "column": 229,
+        "length": 1
+    },
+    "COLNTES1": {
+        "column": 230,
+        "length": 1
+    },
+    "SIGMTES1": {
+        "column": 231,
+        "length": 1
+    },
+    "LASTSIG4": {
+        "column": 232,
+        "length": 1
+    },
+    "COLNCNCR": {
+        "column": 233,
+        "length": 1
+    },
+    "VIRCOLO1": {
+        "column": 234,
+        "length": 1
+    },
+    "VCLNTES2": {
+        "column": 235,
+        "length": 1
+    },
+    "SMALSTOL": {
+        "column": 236,
+        "length": 1
+    },
+    "STOLTEST": {
+        "column": 237,
+        "length": 1
+    },
+    "STOOLDN2": {
+        "column": 238,
+        "length": 1
+    },
+    "BLDSTFIT": {
+        "column": 239,
+        "length": 1
+    },
+    "SDNATES1": {
+        "column": 240,
+        "length": 1
+    },
+    "SMOKE100": {
+        "column": 241,
+        "length": 1
+    },
+    "SMOKDAY2": {
+        "column": 242,
+        "length": 1
+    },
+    "USENOW3": {
+        "column": 243,
+        "length": 1
+    },
+    "ECIGNOW3": {
+        "column": 244,
+        "length": 1
+    },
+    "LCSFIRST": {
+        "column": 245,
+        "length": 3
+    },
+    "LCSLAST": {
+        "column": 248,
+        "length": 3
+    },
+    "LCSNUMCG": {
+        "column": 251,
+        "length": 3
+    },
+    "LCSCTSC1": {
+        "column": 254,
+        "length": 1
+    },
+    "LCSSCNCR": {
+        "column": 255,
+        "length": 1
+    },
+    "LCSCTWHN": {
+        "column": 256,
+        "length": 1
+    },
+    "ALCDAY4": {
+        "column": 257,
+        "length": 3
+    },
+    "AVEDRNK4": {
+        "column": 260,
+        "length": 2
+    },
+    "DRNK3GE5": {
+        "column": 262,
+        "length": 2
+    },
+    "MAXDRNKS": {
+        "column": 264,
+        "length": 2
+    },
+    "FLUSHOT7": {
+        "column": 266,
+        "length": 1
+    },
+    "FLSHTMY3": {
+        "column": 267,
+        "length": 6
+    },
+    "IMFVPLA5": {
+        "column": 273,
+        "length": 2
+    },
+    "PNEUVAC4": {
+        "column": 275,
+        "length": 1
+    },
+    "HIVTST7": {
+        "column": 276,
+        "length": 1
+    },
+    "HIVTSTD3": {
+        "column": 277,
+        "length": 6
+    },
+    "HIVRISK5": {
+        "column": 283,
+        "length": 1
+    },
+    "PDIABTS1": {
+        "column": 284,
+        "length": 1
+    },
+    "PREDIAB2": {
+        "column": 285,
+        "length": 1
+    },
+    "DIABTYPE": {
+        "column": 286,
+        "length": 1
+    },
+    "INSULIN1": {
+        "column": 287,
+        "length": 1
+    },
+    "CHKHEMO3": {
+        "column": 288,
+        "length": 2
+    },
+    "EYEEXAM1": {
+        "column": 290,
+        "length": 1
+    },
+    "DIABEYE1": {
+        "column": 291,
+        "length": 1
+    },
+    "DIABEDU1": {
+        "column": 292,
+        "length": 1
+    },
+    "FEETSORE": {
+        "column": 293,
+        "length": 1
+    },
+    "ARTHEXER": {
+        "column": 294,
+        "length": 1
+    },
+    "SHINGLE2": {
+        "column": 295,
+        "length": 1
+    },
+    "HPVADVC4": {
+        "column": 296,
+        "length": 1
+    },
+    "HPVADSH1": {
+        "column": 297,
+        "length": 1
+    },
+    "TETANUS1": {
+        "column": 298,
+        "length": 1
+    },
+    "CNCRDIFF": {
+        "column": 299,
+        "length": 1
+    },
+    "CNCRAGE": {
+        "column": 300,
+        "length": 2
+    },
+    "CNCRTYP2": {
+        "column": 302,
+        "length": 2
+    },
+    "CSRVTRT3": {
+        "column": 304,
+        "length": 1
+    },
+    "CSRVDOC1": {
+        "column": 305,
+        "length": 2
+    },
+    "CSRVSUM": {
+        "column": 307,
+        "length": 1
+    },
+    "CSRVRTRN": {
+        "column": 308,
+        "length": 1
+    },
+    "CSRVINST": {
+        "column": 309,
+        "length": 1
+    },
+    "CSRVINSR": {
+        "column": 310,
+        "length": 1
+    },
+    "CSRVDEIN": {
+        "column": 311,
+        "length": 1
+    },
+    "CSRVCLIN": {
+        "column": 312,
+        "length": 1
+    },
+    "CSRVPAIN": {
+        "column": 313,
+        "length": 1
+    },
+    "CSRVCTL2": {
+        "column": 314,
+        "length": 1
+    },
+    "PSATEST1": {
+        "column": 315,
+        "length": 1
+    },
+    "PSATIME1": {
+        "column": 316,
+        "length": 1
+    },
+    "PCPSARS2": {
+        "column": 317,
+        "length": 1
+    },
+    "PSASUGS1": {
+        "column": 318,
+        "length": 1
+    },
+    "PCSTALK2": {
+        "column": 319,
+        "length": 1
+    },
+    "CIMEMLO1": {
+        "column": 320,
+        "length": 1
+    },
+    "CDWORRY": {
+        "column": 321,
+        "length": 1
+    },
+    "CDDISCU1": {
+        "column": 322,
+        "length": 1
+    },
+    "CDHOUS1": {
+        "column": 323,
+        "length": 1
+    },
+    "CDSOCIA1": {
+        "column": 324,
+        "length": 1
+    },
+    "CAREGIV1": {
+        "column": 325,
+        "length": 1
+    },
+    "CRGVREL5": {
+        "column": 326,
+        "length": 2
+    },
+    "CRGVPRB4": {
+        "column": 328,
+        "length": 2
+    },
+    "CRGVALZD": {
+        "column": 330,
+        "length": 1
+    },
+    "CRGVNURS": {
+        "column": 331,
+        "length": 1
+    },
+    "CRGVPER2": {
+        "column": 332,
+        "length": 1
+    },
+    "CRGVHOU2": {
+        "column": 333,
+        "length": 1
+    },
+    "CRGVHRS2": {
+        "column": 334,
+        "length": 1
+    },
+    "CRGVLNG2": {
+        "column": 335,
+        "length": 1
+    },
+    "ACEDEPRS": {
+        "column": 336,
+        "length": 1
+    },
+    "ACEDRINK": {
+        "column": 337,
+        "length": 1
+    },
+    "ACEDRUGS": {
+        "column": 338,
+        "length": 1
+    },
+    "ACEPRISN": {
+        "column": 339,
+        "length": 1
+    },
+    "ACEDIVRC": {
+        "column": 340,
+        "length": 1
+    },
+    "ACEPUNCH": {
+        "column": 341,
+        "length": 1
+    },
+    "ACEHURT1": {
+        "column": 342,
+        "length": 1
+    },
+    "ACESWEAR": {
+        "column": 343,
+        "length": 1
+    },
+    "ACETOUCH": {
+        "column": 344,
+        "length": 1
+    },
+    "ACETTHEM": {
+        "column": 345,
+        "length": 1
+    },
+    "ACEHVSEX": {
+        "column": 346,
+        "length": 1
+    },
+    "ACEADSAF": {
+        "column": 347,
+        "length": 1
+    },
+    "ACEADNED": {
+        "column": 348,
+        "length": 1
+    },
+    "LSATISFY": {
+        "column": 349,
+        "length": 1
+    },
+    "EMTSUPRT": {
+        "column": 350,
+        "length": 1
+    },
+    "SDLONELY": {
+        "column": 351,
+        "length": 1
+    },
+    "SDHEMPLY": {
+        "column": 352,
+        "length": 1
+    },
+    "FOODSTMP": {
+        "column": 353,
+        "length": 1
+    },
+    "SDHFOOD1": {
+        "column": 354,
+        "length": 1
+    },
+    "SDHBILLS": {
+        "column": 355,
+        "length": 1
+    },
+    "SDHUTILS": {
+        "column": 356,
+        "length": 1
+    },
+    "SDHTRNSP": {
+        "column": 357,
+        "length": 1
+    },
+    "HOWSAFE1": {
+        "column": 358,
+        "length": 1
+    },
+    "MARIJAN1": {
+        "column": 359,
+        "length": 2
+    },
+    "MARJSMOK": {
+        "column": 361,
+        "length": 1
+    },
+    "MARJEAT": {
+        "column": 362,
+        "length": 1
+    },
+    "MARJVAPE": {
+        "column": 363,
+        "length": 1
+    },
+    "MARJDAB": {
+        "column": 364,
+        "length": 1
+    },
+    "MARJOTHR": {
+        "column": 365,
+        "length": 1
+    },
+    "USEMRJN4": {
+        "column": 366,
+        "length": 1
+    },
+    "LASTSMK2": {
+        "column": 367,
+        "length": 2
+    },
+    "STOPSMK2": {
+        "column": 369,
+        "length": 1
+    },
+    "MENTCIGS": {
+        "column": 370,
+        "length": 1
+    },
+    "MENTECIG": {
+        "column": 371,
+        "length": 1
+    },
+    "HEATTBCO": {
+        "column": 372,
+        "length": 1
+    },
+    "SSBSUGR2": {
+        "column": 373,
+        "length": 3
+    },
+    "SSBFRUT3": {
+        "column": 376,
+        "length": 3
+    },
+    "FIREARM5": {
+        "column": 379,
+        "length": 1
+    },
+    "GUNLOAD": {
+        "column": 380,
+        "length": 1
+    },
+    "LOADULK2": {
+        "column": 381,
+        "length": 1
+    },
+    "RCSBORG1": {
+        "column": 588,
+        "length": 1
+    },
+    "RCSRLTN2": {
+        "column": 622,
+        "length": 1
+    },
+    "CASTHDX2": {
+        "column": 623,
+        "length": 1
+    },
+    "CASTHNO2": {
+        "column": 624,
+        "length": 1
+    },
+    "SOMALE": {
+        "column": 626,
+        "length": 1
+    },
+    "SOFEMALE": {
+        "column": 627,
+        "length": 1
+    },
+    "HADSEX": {
+        "column": 629,
+        "length": 1
+    },
+    "PFPPRVN4": {
+        "column": 630,
+        "length": 1
+    },
+    "TYPCNTR9": {
+        "column": 631,
+        "length": 2
+    },
+    "NOBCUSE8": {
+        "column": 633,
+        "length": 2
+    },
+    "QSTVER": {
+        "column": 646,
+        "length": 2
+    },
+    "QSTLANG": {
+        "column": 648,
+        "length": 2
+    },
+    "HPVDSHT": {
+        "column": 801,
+        "length": 2
+    },
+    "ICFQSTVR": {
+        "column": 803,
+        "length": 1
+    },
+    "_METSTAT": {
+        "column": 1402,
+        "length": 1
+    },
+    "_URBSTAT": {
+        "column": 1403,
+        "length": 1
+    },
+    "MSCODE": {
+        "column": 1409,
+        "length": 1
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "uscs": {
+        "path": "data_to_ingest//uscs",
+        "table_name": "cdc_us_cancer_statistics"
+    },
+    "nhis": {
+        "path": "data_to_ingest//nhis",
+        "table_name": "national_health_interview_survey"
+    },
+    "brfss": {
+        "path": "data_to_ingest//brfss//LLCP2024.ASC",
+        "table_name": "behavioral_risk_factor_surveillance_system"
+    }
+}

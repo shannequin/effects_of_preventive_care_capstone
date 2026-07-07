@@ -1,0 +1,27 @@
+{
+    "ALLOWED_RAW_TABLES": [
+        "behavioral_risk_factor_surveillance_system",
+        "cdc_us_cancer_statistics",
+        "national_health_interview_survey"
+    ],
+    "ALLOWED_STAGING_TABLES": [
+        "ahs01_health_insurance",
+        "behavioral_risk_factor_surveillance_system",
+        "behavioral_risk_factor_surveillance_system_questions",
+        "c05_breast_cancer_screenings",
+        "c07_colorectal_cancer_screenings",
+        "c09_cervical_cancer_screenings",
+        "iid09_flu_vaccinations",
+        "ohm01_overall_well_being",
+        "ohm04_life_expectancy_at_birth",
+        "ohm08_respondent_assessed_health_status",
+        "uscs_incidence_chart",
+        "uscs_mortality_chart",
+        "uscs_preliminary_estimates_chart",
+        "uscs_prevalence_chart",
+        "uscs_stage_at_diagnosis_chart",
+        "uscs_survival_chart",
+        "uscs_trends_chart"
+    ],
+    "ALLOWED_CORE_TABLES": []
+}
