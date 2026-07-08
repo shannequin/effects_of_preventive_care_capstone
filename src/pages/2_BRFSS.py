@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import streamlit as st
 
+from utils.custom_visuals import rainbow_divider
+
 
 CONN = st.connection("postgresql", type="sql")
 
@@ -32,7 +34,7 @@ def populate_body(brfss_question_df, selected_question) -> None:
     Populate the main body of the page with the selected survey question's results.
     """
     if not selected_question:
-        st.text("Please select a question from the sidebar.")
+        st.info("Please select a question from the sidebar.")
 
     else:
         column_name = brfss_question_df[brfss_question_df['Question'] == selected_question]['Field'].values[0]
@@ -72,10 +74,7 @@ def main() -> None:
 
     st.title("Behavioral Risk Factor Surveillance System", text_alignment="center")
 
-    st.markdown(
-        "<hr style='border: 0; height: 2px; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);'>",
-        unsafe_allow_html=True
-    )
+    rainbow_divider()
 
     brfss_question_df, selected_question = populate_sidebar()
 
