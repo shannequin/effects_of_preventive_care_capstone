@@ -84,5 +84,5 @@ def main() -> None:
 
     populate_body(question_df, question)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
