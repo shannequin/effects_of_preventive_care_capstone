@@ -85,5 +85,5 @@ def main() -> None:
 
     populate_body(survey, demographic, survey_df)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
