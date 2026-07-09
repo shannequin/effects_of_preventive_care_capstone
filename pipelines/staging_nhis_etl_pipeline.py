@@ -44,7 +44,7 @@ def split_dataframe_by_code(df: pd.DataFrame) -> dict:
         df = df.dropna(axis=1, how='all')
 
         # Try to convert period column to int
-        if 'period' in df.columns:
+        if 'period' in df.columns and code != 'IID-09':
             df.loc[:, 'period'] = pd.to_numeric(df['period'], errors='coerce')
 
         # Sort columns

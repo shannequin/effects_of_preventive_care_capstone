@@ -5,7 +5,7 @@ from config.brfss_value_map import brfss_value_map
 from database.connection import get_db_connection
 from extract import fetch_raw_data_map, validate_table_name
 from load import update_config_tables
-from transform import clean_column_names
+from transform import clean_column_names, clean_values
 
 
 SCHEMA = 'staging'
@@ -145,6 +145,35 @@ def transform_missing_values(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
+def create_table_for_questions(table_name: str, conn) -> None:
+    """
+    Create a table for the questions corresponding to the given table name.
+    """
+    # Clean and prepare the questions dataframe
+    cleaned_values_list = clean_values(value_list=list(brfss_value_map.keys()))
+    questions_df  = pd.DataFrame(data={
+        'Field': cleaned_values_list,
+        'Question': [v['Question'] for v in brfss_value_map.values()]
+    })
+
+    # Add a new entry for 'adult1' based on the 'ladult1' question
+    adult1_question = questions_df.loc[questions_df['Field'] == 'ladult1', 'Question'].values[0]
+    questions_df = pd.concat([questions_df, pd.DataFrame([{'Field': 'adult1', 'Question': adult1_question}])], ignore_index=True)
+    questions_df = questions_df[(questions_df['Field'] != 'ladult1') & (questions_df['Field'] != 'cadult1')]
+
+    # Add a new entry for 'sex3' based on the 'landsex3' question
+    sex3_question = questions_df.loc[questions_df['Field'] == 'landsex3', 'Question'].values[0]
+    questions_df = pd.concat([questions_df, pd.DataFrame([{'Field': 'sex3', 'Question': sex3_question}])], ignore_index=True)
+    questions_df = questions_df[(questions_df['Field'] != 'landsex3') & (questions_df['Field'] != 'cellsex3')]
+
+    questions_df.to_sql(
+        name=f'{table_name}_questions',
+        con=conn,
+        schema=SCHEMA,
+        if_exists='replace',
+        index=False
+    )
+
 def run_staging_etl_pipeline(dataset: str) -> None:
     """
     Run the staging ETL pipeline for the specified dataset.
@@ -201,18 +230,7 @@ def run_staging_etl_pipeline(dataset: str) -> None:
             print('----------')
 
         # Create a table for questions
-        questions_df  = pd.DataFrame(data={
-            'Field': list(brfss_value_map.keys()),
-            'Question': [v['Question'] for v in brfss_value_map.values()]
-        })
-
-        questions_df.to_sql(
-            name=f'{table_name}_questions',
-            con=conn,
-            schema=SCHEMA,
-            if_exists='replace',
-            index=False
-        )
+        create_table_for_questions(table_name=table_name, conn=conn)
 
     # Update the allowed tables configuration
     update_config_tables(table_name=table_name, schema=SCHEMA)

@@ -70,3 +70,4 @@ Present your question. Feel free to include any research/articles that are relev
 * Create .env file for environment variables
 * Set Python interpreter to conda
 * Set project to Python search path: *set PYTHONPATH=C:\Users\shann\Documents\NSS\effects_of_preventive_care_capstone*
+* Run locally: *streamlit run src/app.py*
