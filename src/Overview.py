@@ -2,6 +2,7 @@ import streamlit as st
 
 from utils.custom_visuals import rainbow_divider
 
+
 def main() -> None:
     """
     Display Overview page.

@@ -75,7 +75,6 @@ def main() -> None:
     """
     Display the Behavioral Risk Factor Surveillance System page.
     """
-
     st.title("Behavioral Risk Factor Surveillance System", text_alignment="center")
 
     rainbow_divider()

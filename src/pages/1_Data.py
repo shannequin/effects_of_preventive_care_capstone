@@ -32,9 +32,6 @@ def main() -> None:
         'policies and programs.'
     )
 
-    # NHIS Data
-
-    # CDC Data
 
 if __name__ == '__main__':
     main()
