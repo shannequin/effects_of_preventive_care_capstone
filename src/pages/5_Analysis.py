@@ -49,24 +49,16 @@ def populate_body(selected_care: str, selected_analysis: str) -> None:
         st.header(care_config['Analysis'][selected_analysis]['header'])
         st.text(care_config['Description'])
 
-        df, plot_path = analysis(
+        analysis(
             care=selected_care,
             indicator=care_config['Analysis'][selected_analysis]['indicator']
-        )
-
-        display_plot(df, plot_path)
-
-        st.dataframe(
-            df[["label", "odds_ratio", "p_value"]]
-            .sort_values("odds_ratio", ascending=False),
-            hide_index=True,
         )
 
 def main() -> None:
     """
     Display the Analysis page.
     """
-    st.title("Analysis", text_alignment="center")
+    st.title("BRFSS Data Analysis", text_alignment="center")
 
     rainbow_divider()
 
