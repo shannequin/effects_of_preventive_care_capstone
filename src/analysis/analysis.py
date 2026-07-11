@@ -8,7 +8,7 @@ from utils.plotting_utils import plot_odds_ratio
 
 CONN = st.connection("postgresql", type="sql")
 
-def analysis(care: str, indicator: str) -> tuple[pd.DataFrame, str]:
+def analysis(care: str, indicator: str) -> None:
     """
     Perform analysis on the relationship between given care and given indicator.
     """
@@ -41,6 +41,10 @@ def analysis(care: str, indicator: str) -> tuple[pd.DataFrame, str]:
     ).fit()
 
     # Plot the odds ratio
-    plot_df, plot_path = plot_odds_ratio(model=model, indicator=indicator)
+    plot_df = plot_odds_ratio(model, care, indicator)
 
-    return plot_df, plot_path
+    st.dataframe(
+            plot_df[["label", "odds_ratio", "p_value"]]
+            .sort_values("odds_ratio", ascending=False),
+            hide_index=True,
+        )
