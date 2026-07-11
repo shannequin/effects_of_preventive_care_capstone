@@ -3,7 +3,6 @@ import streamlit as st
 from analysis.analysis import analysis
 from config.analysis_config import ANALYSIS_CONFIG
 from utils.custom_visuals import rainbow_divider
-from utils.plotting_utils import display_plot
 
 
 def populate_sidebar() -> tuple[str, str]:
@@ -50,8 +49,8 @@ def populate_body(selected_care: str, selected_analysis: str) -> None:
         st.text(care_config['Description'])
 
         analysis(
-            care=selected_care,
-            indicator=care_config['Analysis'][selected_analysis]['indicator']
+            selected_care,
+            selected_analysis
         )
 
 def main() -> None:
