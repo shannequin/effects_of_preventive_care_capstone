@@ -5,6 +5,65 @@ import streamlit as st
 import textwrap
 
 
+def plot_nhis_survey(selected_survey: str, selected_demographic: str, survey_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Create a line plot of the NHIS survey trends.
+    """
+    # Filter the survey dataframe based on the selected demographic
+    survey_df = survey_df.loc[survey_df['demographic_group'] == selected_demographic]
+    survey_df = survey_df.dropna(subset=['period']).copy()
+
+    # Drop unnecessary columns and sort the dataframe for better display
+    survey_df = (
+        survey_df
+        .drop(columns=['code', 'title', 'demographic_group'])
+        .sort_values(['population', 'period'])
+    )
+
+    # Convert period to a string for better display on the x-axis
+    survey_df['period'] = survey_df['period'].astype(int).astype(str)
+    values = ''
+
+    # If estimate column exists, convert it to numeric for plotting
+    if 'estimate' in survey_df.columns:
+        # Convert the estimate column to numeric, coercing errors to NaN
+        survey_df['estimate'] = pd.to_numeric(survey_df['estimate'], errors='coerce')
+        values = 'estimate'
+        y_label = 'Estimate (%)'
+
+    # Create a matrix of period vs population with the estimate as the values
+    survey_df = survey_df.pivot(
+        index='period',
+        columns='population',
+        values=values
+    )
+
+    # Initialize the figure and axis    
+    fig, ax = plt.subplots()
+
+    # Create a line plot of the survey data
+    survey_df.plot(ax=ax, marker='o')
+
+    # Set labels
+    ax.set_title(f'{selected_survey} Screening by {selected_demographic}')
+    ax.set_xlabel('Period')
+    ax.set_ylabel(y_label)
+    ax.legend(title='Population', bbox_to_anchor=(1, 1), loc='upper left')
+    ax.set_xticks(range(len(survey_df.index)))
+    ax.set_xticklabels(survey_df.index, rotation=45)
+
+    # Display the plot in Streamlit
+    st.pyplot(fig)
+
+    # Save the plot as a PNG file
+    # Format the demographic name for the file path
+    survey_name = selected_survey.replace(' ', '_').replace('/', '_').lower()
+    demographic_name = selected_demographic.replace(' ', '_').replace('/', '_').lower()
+    plot_path = f'src/figures/{survey_name}_{demographic_name}_survey.png'
+    fig.savefig(plot_path, bbox_inches='tight')
+
+    return survey_df
+
 def plot_odds_ratio(model, indicator: str) -> tuple[pd.DataFrame, str]:
     """
     Create and save an error bar plot of odds ratios.

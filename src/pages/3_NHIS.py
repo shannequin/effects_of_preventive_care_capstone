@@ -1,8 +1,10 @@
+import matplotlib.pyplot as plt
 import pandas as pd
 import re
 import streamlit as st
 
 from utils.custom_visuals import rainbow_divider
+from utils.plotting_utils import plot_nhis_survey
 
 
 CONN = st.connection("postgresql", type="sql")
@@ -60,29 +62,21 @@ def populate_sidebar() -> tuple[str, str, pd.DataFrame]:
 
     return selected_survey, selected_demographic, survey_df
 
-def populate_body(survey: str, demographic: str, survey_df: pd.DataFrame) -> None:
+def populate_body(selected_survey: str, selected_demographic: str, survey_df: pd.DataFrame) -> None:
     """
     Populate the body with the selected survey data.
     """
-    if not survey:
+    if not selected_survey:
         st.info('Please select a survey from the sidebar.')
 
-    elif not demographic:
+    elif not selected_demographic:
         st.info('Please select a demographic from the sidebar.')
 
     else:
-        # Filter the survey dataframe based on the selected demographic
-        survey_df = survey_df.loc[survey_df['demographic_group'] == demographic]
-
-        # Drop unnecessary columns and sort the dataframe for better display
-        survey_df = (
-            survey_df
-            .drop(columns=['code', 'title', 'demographic_group'])
-            .sort_values(['population', 'period'])
-        )
+        survey_df = plot_nhis_survey(selected_survey, selected_demographic, survey_df)
 
         # Display the survey dataframe
-        st.dataframe(survey_df, hide_index=True)
+        st.write(survey_df)
 
 def main() -> None:
     """
@@ -92,9 +86,9 @@ def main() -> None:
 
     rainbow_divider()
 
-    survey, demographic, survey_df = populate_sidebar()
+    selected_survey, selected_demographic, survey_df = populate_sidebar()
 
-    populate_body(survey, demographic, survey_df)
+    populate_body(selected_survey, selected_demographic, survey_df)
 
 if __name__ == '__main__':
     main()
