@@ -54,12 +54,15 @@ def populate_body(question_df: pd.DataFrame, question: str) -> None:
 
         survey_df = survey_df.dropna(subset=[column_name, 'count'])
 
+        # Wrap long labels for better display
         survey_df['label'] = survey_df[column_name].apply(
             lambda x: '\n'.join(textwrap.wrap(str(x), width=45))
         )
 
+        # Initialize plot
         fig, ax = plt.subplots()
 
+        # Adjust figure size based on the number of unique labels
         label_count = survey_df['label'].nunique()
 
         if label_count > 60:
@@ -69,6 +72,7 @@ def populate_body(question_df: pd.DataFrame, question: str) -> None:
                 fig.get_size_inches()[0],
                 fig.get_size_inches()[1] * 2
             )
+
             st.text('Note: Only the top 60 most common responses are displayed due to space constraints.')
 
         elif label_count > 10:
@@ -77,6 +81,7 @@ def populate_body(question_df: pd.DataFrame, question: str) -> None:
                 fig.get_size_inches()[1] * 2
             )
 
+        # Get aggregated count values
         count_values = (
             survey_df
             .set_index(column_name)
@@ -85,26 +90,37 @@ def populate_body(question_df: pd.DataFrame, question: str) -> None:
             ]['count']
         )
 
+        # Set the bar colors
         colors = plt.cm.rainbow(np.linspace(1, 0, len(survey_df)))
+
+        # Create the bar plot
         ax.barh(
             y=survey_df['label'].sort_values(ascending=False),
             width=count_values,
             color=colors
         )
+
+        # Add aggregated count values to the bars
         for i, (count) in enumerate(count_values):
             ax.text(count, i, str(count), va='center', ha='left', fontsize=8)
+
+        # Add gridlines
         ax.grid(axis='x', which='major', linestyle='--', alpha=0.7)
+
+        # Label the x-axis
         ax.set_xlabel('Count')
-        
+
+        # Display the plot
         st.pyplot(fig)
 
+        # Display the dataframe
         st.dataframe(survey_df, hide_index=True)
 
 def main() -> None:
     """
     Display the Behavioral Risk Factor Surveillance System page.
     """
-    st.title("Behavioral Risk Factor Surveillance System", text_alignment="center")
+    st.title('Behavioral Risk Factor Surveillance System', text_alignment='center')
 
     rainbow_divider()
 

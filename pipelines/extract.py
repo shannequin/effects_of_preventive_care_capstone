@@ -14,9 +14,9 @@ def validate_table_name(table_name: str) -> None:
         tables_config = json.load(f)
 
     if table_name not in tables_config['ALLOWED_RAW_TABLES']:
-        raise ValueError(f"Table '{table_name}' is not in the allowed list.")
+        raise ValueError(f'Table \'{table_name}\' is not in the allowed list.')
 
-def fetch_raw_data_map(dataset: str) -> json:
+def fetch_raw_data_map(dataset: str) -> tuple[str, str]:
     """
     Fetch the path and table name for the given dataset.
     """
@@ -28,12 +28,12 @@ def fetch_raw_data_map(dataset: str) -> json:
 
     return path, table_name
 
-def extract_from_csv_files(path: str) -> list:
+def extract_from_csv_files(path: str) -> pd.DataFrame:
     """
     Extract data from all CSV files in the specified path and return a merged dataframe.
     """
     if not os.path.exists(path):
-        raise FileNotFoundError(f"The file at path '{path}' does not exist.")
+        raise FileNotFoundError(f'The file at path \'{path}\' does not exist.')
 
     else:
         df_list = []
@@ -70,6 +70,6 @@ def extract_all_from_raw(table_name: str) -> pd.DataFrame:
         query = text(f'SELECT * FROM raw.{table_name}')
         df = pd.read_sql_query(query, conn)
 
-    print(f"Extracted {len(df)} records from 'raw.{table_name}'")
+    print(f'Extracted {len(df)} records from \'raw.{table_name}\'')
 
     return df
