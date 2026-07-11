@@ -83,7 +83,7 @@ def plot_nhis_survey(selected_survey: str, selected_demographic: str, survey_df:
 
         return survey_df
 
-def plot_odds_ratio(model: 'model', care: str, indicator: str) -> pd.DataFrame:
+def plot_odds_ratio(model: 'model', care: str, analysis: str) -> pd.DataFrame:
     """
     Create and save an error bar plot of odds ratios.
     """
@@ -113,7 +113,7 @@ def plot_odds_ratio(model: 'model', care: str, indicator: str) -> pd.DataFrame:
     # Clean long statsmodels categorical labels
     plot_df['label'] = (
         plot_df['term']
-        .str.replace(rf'C\({indicator}\)\[T\.', '', regex=True)
+        .str.replace(rf'^C.+T\.', '', regex=True)
         .str.replace(r'\]$', '', regex=True)
     )
 
@@ -146,16 +146,32 @@ def plot_odds_ratio(model: 'model', care: str, indicator: str) -> pd.DataFrame:
 
         # Set the odds ratio values above the points
         for i, odds_ratio in enumerate(plot_df['odds_ratio']):
-            plt.text(odds_ratio, i, f'{odds_ratio:.3f}', va='bottom', ha='center', fontsize=10, color='black')
+            plt.annotate(
+                f"{odds_ratio:.3f}",
+                xy=(odds_ratio, i),
+                xytext=(0, 4),
+                textcoords="offset points",
+                ha="center",
+                va="bottom",
+                fontsize=8,
+                color="black"
+            )
 
         # Set odds ratio 1 indicator
         plt.axvline(1, linestyle='--', linewidth=1)
 
         # Set labels
         plt.suptitle(f'Target: {care} Care')
-        plt.title('Odds Ratios with 95% Confidence Intervals', fontsize=10)
-        plt.xlabel('Odds Ratio')
-        plt.ylabel('Indicator')
+        baseline = ANALYSIS_CONFIG[care]['Analysis'][analysis]['base_category']
+        plt.title(f'Baseline: {baseline}', fontsize=10)
+        plt.xlabel('Odds Ratios with 95% Confidence Intervals')
+        plt.ylabel('Indicators')
+        plt.text(
+            0.5, -0.15,
+            '(Only statistically significant associations (p <= 0.05) are shown)',
+            ha='center',
+            transform=plt.gca().transAxes
+        )
 
         # Get the current figure
         fig = plt.gcf()
@@ -163,18 +179,13 @@ def plot_odds_ratio(model: 'model', care: str, indicator: str) -> pd.DataFrame:
         # Display the plot in Streamlit
         st.pyplot(fig)
 
+        # Format the survey name and demographic for use in the plot filename
+        care_name = care.replace(' ', '_').lower()
+        analysis_name = analysis.replace(' ', '_').lower()
+
+
         # Save fig as png
-        plot_path = f'src/figures/{care.lower()}_{indicator}_odds_ratios.png'
+        plot_path = f'src/figures/{care_name}_{analysis_name}_odds_ratios.png'
         fig.savefig(plot_path, bbox_inches='tight')
 
         return plot_df
-
-def display_plot(df: pd.DataFrame, plot_path: str) -> None:
-    """
-    If the dataframe is not empty, display the odds ratio plot.
-    """
-    if df.empty:
-        st.warning('No statistically significant associations found.')
-
-    else:
-        st.image(plot_path)

@@ -1,4 +1,3 @@
-import pandas as pd
 import statsmodels.formula.api as smf
 import streamlit as st
 
@@ -8,11 +7,13 @@ from utils.plotting_utils import plot_odds_ratio
 
 CONN = st.connection("postgresql", type="sql")
 
-def analysis(care: str, indicator: str) -> None:
+def analysis(selected_care: str, selected_analysis: str) -> None:
     """
     Perform analysis on the relationship between given care and given indicator.
     """
-    screening_list = ANALYSIS_CONFIG[care]['Screenings']
+    # Format query based on the selected care and analysis
+    screening_list = ANALYSIS_CONFIG[selected_care]['Screenings']
+    indicator = ANALYSIS_CONFIG[selected_care]['Analysis'][selected_analysis]['indicator']
 
     query = f"""SELECT
                     {', '.join(screening_list)},
@@ -34,14 +35,18 @@ def analysis(care: str, indicator: str) -> None:
         .astype(int)
     )
 
+    # Format the formula for logistic regression, using the base category if specified in the config
+    base_category = ANALYSIS_CONFIG[selected_care]['Analysis'][selected_analysis].get('base_category')
+    formula = f'any_screenings ~ C({indicator}, Treatment(reference=\'{base_category}\'))'
+
     # Fit a classification logistic regression model
     model = smf.logit(
-        formula=f'any_screenings ~ C({indicator})',
+        formula=formula,
         data=df
     ).fit()
 
     # Plot the odds ratio
-    plot_df = plot_odds_ratio(model, care, indicator)
+    plot_df = plot_odds_ratio(model, selected_care, selected_analysis)
 
     st.dataframe(
             plot_df[["label", "odds_ratio", "p_value"]]
