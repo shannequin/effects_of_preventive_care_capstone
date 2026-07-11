@@ -10,6 +10,7 @@ def populate_sidebar() -> tuple[str, str]:
     """
     Populate the sidebar with analysis options.
     """
+    # Initialize the variable
     selected_analysis = None
 
     st.sidebar.title('Analysis')
@@ -42,13 +43,18 @@ def populate_body(selected_care: str, selected_analysis: str) -> None:
         st.info("Please select analysis from the sidebar.")
 
     else:
+        # Get the analysis configuration for the selected care and analysis
         care_config = ANALYSIS_CONFIG[selected_care]
+
         st.header(care_config['Analysis'][selected_analysis]['header'])
         st.text(care_config['Description'])
 
-        df, plot_path = analysis(care=selected_care, indicator=care_config['Analysis'][selected_analysis]['indicator'])
+        df, plot_path = analysis(
+            care=selected_care,
+            indicator=care_config['Analysis'][selected_analysis]['indicator']
+        )
 
-        display_plot(df=df, plot_path=plot_path)
+        display_plot(df, plot_path)
 
         st.dataframe(
             df[["label", "odds_ratio", "p_value"]]
@@ -67,7 +73,6 @@ def main() -> None:
     selected_care, selected_analysis = populate_sidebar()
 
     populate_body(selected_care, selected_analysis)
-
 
 if __name__ == '__main__':
     main()

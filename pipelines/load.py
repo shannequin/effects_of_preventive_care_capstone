@@ -19,7 +19,7 @@ def create_and_load_table(df: pd.DataFrame, table_name: str, schema: str, if_exi
             index=False
         )
 
-    print(f"Table '{schema}.{table_name}' created with {len(df)} records.")
+    print(f'Table \'{schema}.{table_name}\' created with {len(df)} records.')
 
 def update_config_tables(table_name: str, schema: str) -> None:
     """
@@ -35,7 +35,7 @@ def update_config_tables(table_name: str, schema: str) -> None:
 
     # Validate if the table name is already in the allowed list
     if table_name in allowed_tables:
-        print(f"Table '{table_name}' already exists in the allowed list.")
+        print(f'Table \'{table_name}\' already exists in the allowed list.')
 
     else:
         # Append the new table name to the allowed list and sort it
@@ -46,4 +46,4 @@ def update_config_tables(table_name: str, schema: str) -> None:
         with open(config_path, 'w') as f:
             json.dump(tables_config, f, indent=4)
 
-        print(f"Table '{table_name}' added to the allowed list.")
+        print(f'Table \'{table_name}\' added to the allowed list.')

@@ -5,13 +5,14 @@ from database.connection import get_db_connection
 from extract import fetch_raw_data_map, fetch_asc_column_map
 from load import update_config_tables
 
+
 def extract_map_load_asc(path: str, table_name: str, dataset: str):
     """
     For each line in the ASC file, extract the data, map the columns, and load it into the specified raw table.
     """
     # Verify the path exists
     if not os.path.exists(path):
-        raise FileNotFoundError(f"The file at path '{path}' does not exist.")
+        raise FileNotFoundError(f'The file at path \'{path}\' does not exist.')
 
     else:
         # Initialize the database connection
@@ -38,7 +39,7 @@ def extract_map_load_asc(path: str, table_name: str, dataset: str):
                         index=False
                     )
 
-                print(f"Table 'raw.{table_name}' appended with record number {i}.")
+                print(f'Table \'raw.{table_name}\' appended with record number {i}.')
 
 def run_raw_etl_pipeline(dataset: str) -> None:
     """

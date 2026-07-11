@@ -27,7 +27,6 @@ data_to_ingest/
 - Exploratory data analysis
 - Logistic regression using `statsmodels`
 - Odds ratio interpretation
-- Predicted probability visualization
 - Interactive Streamlit dashboard development
 
 ## Tech Stack

@@ -18,10 +18,11 @@ SURVEY_TABLE_MAP = {
     'Health Status': 'ohm08_respondent_assessed_health_status'
 }
 
-def populate_sidebar() -> tuple[str, str]:
+def populate_sidebar() -> tuple[str, str, pd.DataFrame]:
     """
     Populate the sidebar with survey options.
     """
+    # Initialize the variables
     selected_demographic = None
     survey_df = pd.DataFrame()
 
@@ -43,9 +44,11 @@ def populate_sidebar() -> tuple[str, str]:
 
         survey_df = CONN.query(sql=query)
 
+        # Format the survey name for display
         survey_title = re.sub(r' - OHM.+', '', survey_df['title'].iloc[0])
         st.subheader(survey_title, text_alignment='center')
 
+        # Get the unique demographic groups for the selected survey
         demographic_options = [demographic for demographic in survey_df['demographic_group'].unique()]
 
         selected_demographic = st.sidebar.selectbox(
@@ -59,7 +62,7 @@ def populate_sidebar() -> tuple[str, str]:
 
 def populate_body(survey: str, demographic: str, survey_df: pd.DataFrame) -> None:
     """
-    Populate the body with the selected survey's data.
+    Populate the body with the selected survey data.
     """
     if not survey:
         st.info('Please select a survey from the sidebar.')
@@ -68,10 +71,18 @@ def populate_body(survey: str, demographic: str, survey_df: pd.DataFrame) -> Non
         st.info('Please select a demographic from the sidebar.')
 
     else:
+        # Filter the survey dataframe based on the selected demographic
         survey_df = survey_df.loc[survey_df['demographic_group'] == demographic]
-        survey_df = survey_df.drop(columns=['code', 'title', 'demographic_group']).sort_values(['population', 'period'])
-        st.dataframe(survey_df, hide_index=True)
 
+        # Drop unnecessary columns and sort the dataframe for better display
+        survey_df = (
+            survey_df
+            .drop(columns=['code', 'title', 'demographic_group'])
+            .sort_values(['population', 'period'])
+        )
+
+        # Display the survey dataframe
+        st.dataframe(survey_df, hide_index=True)
 
 def main() -> None:
     """

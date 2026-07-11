@@ -5,7 +5,7 @@ import streamlit as st
 import textwrap
 
 
-def plot_odds_ratio(model, indicator: str) -> pd.DataFrame:
+def plot_odds_ratio(model, indicator: str) -> tuple[pd.DataFrame, str]:
     """
     Create and save an error bar plot of odds ratios.
     """
@@ -39,7 +39,7 @@ def plot_odds_ratio(model, indicator: str) -> pd.DataFrame:
         .str.replace(r'\]$', '', regex=True)
     )
 
-    # Wrap labels
+    # Wrap long labels for better display
     plot_df['label'] = plot_df['label'].apply(lambda x: '\n'.join(textwrap.wrap(x, width=45)))
 
     # Sort by odds ratio
@@ -66,7 +66,11 @@ def plot_odds_ratio(model, indicator: str) -> pd.DataFrame:
 
     # Set odds ratio 1 indicator
     plt.axvline(1, linestyle='--', linewidth=1)
+
+    # Label the x-axis
     plt.xlabel('Odds Ratio')
+
+    # Get the current figure
     fig = plt.gcf()
 
     # Save fig as png
@@ -81,5 +85,6 @@ def display_plot(df: pd.DataFrame, plot_path: str) -> None:
     """
     if df.empty:
         st.warning('No statistically significant associations found.')
+
     else:
         st.image(plot_path)
