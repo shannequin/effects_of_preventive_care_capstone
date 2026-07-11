@@ -1,40 +1,60 @@
 import streamlit as st
 
-from analysis.colorectal_analysis import colorectal_insurance_analysis
+from analysis.analysis import analysis
+from config.analysis_config import ANALYSIS_CONFIG
 from utils.custom_visuals import rainbow_divider
+from utils.plotting_utils import display_plot
 
 
-def populate_sidebar() -> str:
+def populate_sidebar() -> tuple[str, str]:
     """
     Populate the sidebar with analysis options.
     """
+    selected_analysis = None
+
     st.sidebar.title('Analysis')
 
-    selected_analysis = st.sidebar.selectbox(
-        label='Select analysis:',
-        options=['Colorectal Cancer'],
+    selected_care = st.sidebar.selectbox(
+        label='Select care:',
+        options=list(ANALYSIS_CONFIG.keys()),
         index=None,
         placeholder='None'
     )
 
-    return selected_analysis
+    if selected_care:
+        selected_analysis = st.sidebar.selectbox(
+            label='Select analysis:',
+            options=list(ANALYSIS_CONFIG[selected_care]['Analysis'].keys()),
+            index=None,
+            placeholder='None'
+        )
 
-def populate_body(analysis):
+    return selected_care, selected_analysis
+
+def populate_body(selected_care: str, selected_analysis: str) -> None:
     """
     Populate main body of the page.
     """
-    if not analysis:
+    if not selected_care:
+        st.info("Please select care from the sidebar.")
+
+    elif not selected_analysis:
         st.info("Please select analysis from the sidebar.")
 
-    elif analysis == 'Colorectal Cancer':
-        st.header('Is the type of primary insurance statistically significant to receiving colorectal cancer screenings?')
-        st.text('Colorectal cancer screenings include colonoscopy, sigmoidoscopy, virtual colonoscopy, CT colonography, blood stool test, FIT DNA, or Cologuard test.')
+    else:
+        care_config = ANALYSIS_CONFIG[selected_care]
+        st.header(care_config['Analysis'][selected_analysis]['header'])
+        st.text(care_config['Description'])
 
-        df, model = colorectal_insurance_analysis()
+        df, plot_path = analysis(care=selected_care, indicator=care_config['Analysis'][selected_analysis]['indicator'])
 
-        st.image("src/figures/colon_odds_ratios.png")
+        display_plot(df=df, plot_path=plot_path)
 
-        st.text(model.summary())
+        st.dataframe(
+            df[["label", "odds_ratio", "p_value"]]
+            .sort_values("odds_ratio", ascending=False),
+            hide_index=True,
+        )
 
 def main() -> None:
     """
@@ -44,9 +64,9 @@ def main() -> None:
 
     rainbow_divider()
 
-    analysis = populate_sidebar()
+    selected_care, selected_analysis = populate_sidebar()
 
-    populate_body(analysis)
+    populate_body(selected_care, selected_analysis)
 
 
 if __name__ == '__main__':
