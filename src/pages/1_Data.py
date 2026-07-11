@@ -33,6 +33,7 @@ def main() -> None:
     )
 
     st.header('Challenges with the Data')
+    
     st.text(
         'Sourcing datasets: Most of the available data is from studies and reports that are already cleaned and aggregated '
         'which limits the ability to perform custom analysis.'

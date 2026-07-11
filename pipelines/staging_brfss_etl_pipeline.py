@@ -1,5 +1,4 @@
 import pandas as pd
-from torch import chunk
 
 from config.brfss_value_map import brfss_value_map
 from database.connection import get_db_connection
@@ -9,12 +8,22 @@ from transform import clean_column_names, clean_values
 
 
 SCHEMA = 'staging'
+LBS_LIMIT = 776
+KG_LOWER_LIMIT = 9023
+KG_UPPER_LIMIT = 9352
+INCHES_LIMIT = 711
+CM_LOWER_LIMIT = 9061
+CM_UPPER_LIMIT = 9998
 
 def transform_idate(df: pd.DataFrame) -> pd.DataFrame:
     """
     Transform the idate column to a standard format.
     """
-    df['idate'] = pd.to_datetime(df['idate'], format='%m%d%Y', errors='coerce').dt.strftime('%m-%d-%Y')
+    df['idate'] = (
+        pd.to_datetime(df['idate'], format='%m%d%Y', errors='coerce')
+        .dt
+        .strftime('%m-%d-%Y')
+    )
 
     return df
 
@@ -27,6 +36,7 @@ def transform_adult1(df: pd.DataFrame) -> pd.DataFrame:
         column='adult1',
         value=df['ladult1'].combine_first(df['cadult1'])
     )
+
     df = df.drop(columns=['ladult1', 'cadult1'])
 
     return df
@@ -40,6 +50,7 @@ def transform_sex3(df: pd.DataFrame) -> pd.DataFrame:
         column='sex3',
         value=df['landsex3'].combine_first(df['cellsex3'])
     )
+
     df = df.drop(columns=['landsex3', 'cellsex3'])
 
     return df
@@ -49,9 +60,9 @@ def determine_weight2_measurement(weight: str) -> str:
     Determine the weight measurement based on the weight value.
     """
     try:
-        if int(weight) <= 776:
+        if int(weight) <= LBS_LIMIT:
             return 'lbs'
-        elif 9023 <= int(weight) <= 9352:
+        elif KG_LOWER_LIMIT <= int(weight) <= KG_UPPER_LIMIT:
             return 'kg'
         else:
             return ''
@@ -75,14 +86,14 @@ def convert_height3(height: str) -> str:
     Convert height3 value to inches or centimeters based on its range.
     """
     try:
-        if int(height) <= 711:
+        if int(height) <= INCHES_LIMIT:
             # Convert the first 2 characters to feet and the last 2 char to inches
             feet = int(height[:2])
             inches = int(height[2:])
 
             return str(feet * 12 + inches)
 
-        elif 9061 <= int(height) <= 9998:
+        elif CM_LOWER_LIMIT <= int(height) <= CM_UPPER_LIMIT:
             # Convert the last 3 characters to centimeters
             return height[-3:]
 
@@ -97,9 +108,9 @@ def determine_height3_measurement(height: str) -> str:
     Determine the height measurement based on the height value.
     """
     try:
-        if int(height) <= 711:
+        if int(height) <= INCHES_LIMIT:
             return 'inches'
-        elif 9061 <= int(height) <= 9998:
+        elif CM_LOWER_LIMIT <= int(height) <= CM_UPPER_LIMIT:
             return 'cm'
         else:
             return ''
@@ -124,7 +135,11 @@ def transform_flshtmy3(df: pd.DataFrame) -> pd.DataFrame:
     """
     Transform the flshtmy3 column to a standard format.
     """
-    df['flshtmy3'] = pd.to_datetime(df['flshtmy3'], format='%m%Y', errors='coerce').dt.strftime('%m-%Y')
+    df['flshtmy3'] = (
+        pd.to_datetime(df['flshtmy3'], format='%m%Y', errors='coerce')
+        .dt
+        .strftime('%m-%Y')
+    )
 
     return df
 
@@ -132,7 +147,11 @@ def transform_hivtstd3(df: pd.DataFrame) -> pd.DataFrame:
     """
     Transform the hivtstd3 column to a standard format.
     """
-    df['hivtstd3'] = pd.to_datetime(df['hivtstd3'], format='%m%Y', errors='coerce').dt.strftime('%m-%Y')
+    df['hivtstd3'] = (
+        pd.to_datetime(df['hivtstd3'], format='%m%Y', errors='coerce')
+        .dt
+        .strftime('%m-%Y')
+    )
 
     return df
 
@@ -151,19 +170,34 @@ def create_table_for_questions(table_name: str, conn) -> None:
     """
     # Clean and prepare the questions dataframe
     cleaned_values_list = clean_values(value_list=list(brfss_value_map.keys()))
+
     questions_df  = pd.DataFrame(data={
         'Field': cleaned_values_list,
         'Question': [v['Question'] for v in brfss_value_map.values()]
     })
 
     # Add a new entry for 'adult1' based on the 'ladult1' question
-    adult1_question = questions_df.loc[questions_df['Field'] == 'ladult1', 'Question'].values[0]
-    questions_df = pd.concat([questions_df, pd.DataFrame([{'Field': 'adult1', 'Question': adult1_question}])], ignore_index=True)
+    adult1_question = (
+        questions_df
+        .loc[questions_df['Field'] == 'ladult1', 'Question']
+        .values[0]
+    )
+    questions_df = pd.concat(
+        [questions_df, pd.DataFrame([{'Field': 'adult1', 'Question': adult1_question}])],
+        ignore_index=True
+    )
     questions_df = questions_df[(questions_df['Field'] != 'ladult1') & (questions_df['Field'] != 'cadult1')]
 
     # Add a new entry for 'sex3' based on the 'landsex3' question
-    sex3_question = questions_df.loc[questions_df['Field'] == 'landsex3', 'Question'].values[0]
-    questions_df = pd.concat([questions_df, pd.DataFrame([{'Field': 'sex3', 'Question': sex3_question}])], ignore_index=True)
+    sex3_question = (
+        questions_df
+        .loc[questions_df['Field'] == 'landsex3', 'Question']
+        .values[0]
+    )
+    questions_df = pd.concat(
+        [questions_df, pd.DataFrame([{'Field': 'sex3', 'Question': sex3_question}])],
+        ignore_index=True
+    )
     questions_df = questions_df[(questions_df['Field'] != 'landsex3') & (questions_df['Field'] != 'cellsex3')]
 
     questions_df.to_sql(
@@ -183,7 +217,8 @@ def run_staging_etl_pipeline(dataset: str) -> None:
 
     validate_table_name(table_name=table_name)
 
-    query = f"""SELECT "{'", "'.join(brfss_value_map.keys())}"
+    query = f"""SELECT
+                    "{'", "'.join(brfss_value_map.keys())}"
                 FROM raw.{table_name}"""
 
     CHUNKSIZE = 50000
@@ -193,8 +228,8 @@ def run_staging_etl_pipeline(dataset: str) -> None:
     with engine.begin() as conn:
 
         for chunk_number, chunk in enumerate(pd.read_sql_query(sql=query, con=conn, chunksize=CHUNKSIZE), start=1):
-            print(f'TEST CHUNK NUMBER: {chunk_number}')
-            print(f'TEST CHUNK LENGTH: {len(chunk)}')
+            print(f'CHUNK NUMBER: {chunk_number}')
+            print(f'CHUNK LENGTH: {len(chunk)}')
 
             # Map integer values to strings
             valid_value_maps = {
@@ -216,8 +251,6 @@ def run_staging_etl_pipeline(dataset: str) -> None:
             chunk = transform_flshtmy3(chunk)
             chunk = transform_hivtstd3(chunk)
             chunk = transform_missing_values(chunk)
-
-            print(f'TEST CHUNK SAMPLE:\n{chunk.sample(10)}')
 
             chunk.to_sql(
                 name=table_name,

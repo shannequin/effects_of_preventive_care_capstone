@@ -19,7 +19,8 @@ def create_additional_fields(df: pd.DataFrame) -> pd.DataFrame:
 
     # Group by statistic_type and create a cancer_type field based on the source_file column.
     df['cancer_type'] = source_file_split.apply(
-        lambda row: row[2].replace('-', ' ') if 'united-states' in row[1] else row[1].replace('-', ' '), axis=1
+        lambda row: row[2].replace('-', ' ') if 'united-states' in row[1] else row[1].replace('-', ' '),
+        axis=1
     )
 
     print('Field created and populated: cancer_type')
@@ -71,7 +72,9 @@ def split_dataframe_by_statistic_type(df: pd.DataFrame) -> dict:
     Returns a dictionary of dataframes with statistic_type as keys.
     """
     # Split the dataframe into a dictionary of dataframes based on the statistic type
-    df_dict = {'_'.join(stat_type.split()).lower(): sub_df for stat_type, sub_df in df.groupby('statistic_type')}
+    df_dict = {
+        '_'.join(stat_type.split()).lower(): sub_df for stat_type, sub_df in df.groupby('statistic_type')
+    }
 
     for stat_type, df in df_dict.items():
         # Drop unnecessary columns

@@ -12,6 +12,6 @@ def main() -> None:
     st.text('https://www.cdc.gov/brfss/index.html')
     st.text('https://odphp.health.gov/healthypeople/objectives-and-data/browse-objectives/cancer')
     st.text('https://www.cdc.gov/united-states-cancer-statistics/public-use/index.html')
-    
+
 if __name__ == '__main__':
     main()
