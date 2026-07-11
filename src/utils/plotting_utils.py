@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import re
 import streamlit as st
 import textwrap
 
@@ -21,7 +22,11 @@ def plot_nhis_survey(selected_survey: str, selected_demographic: str, survey_df:
     )
 
     # Convert period to a string for better display on the x-axis
-    survey_df['period'] = survey_df['period'].astype(int).astype(str)
+    try:
+        survey_df['period'] = survey_df['period'].astype(int).astype(str)
+    except:
+        survey_df['period'] = survey_df['period'].astype(str)
+
     values = ''
 
     # If estimate column exists, convert it to numeric for plotting
@@ -38,31 +43,43 @@ def plot_nhis_survey(selected_survey: str, selected_demographic: str, survey_df:
         values=values
     )
 
-    # Initialize the figure and axis    
-    fig, ax = plt.subplots()
+    if survey_df.empty:
+        st.warning('No data available for the selected survey and demographic group.')
+        return pd.DataFrame()
+    
+    else:
+        # Initialize the figure and axis    
+        fig, ax = plt.subplots()
 
-    # Create a line plot of the survey data
-    survey_df.plot(ax=ax, marker='o')
+        title = ''
+        if 'cancer' in selected_survey.lower():
+            title = 'Screening Rate (%)'
 
-    # Set labels
-    ax.set_title(f'{selected_survey} Screening by {selected_demographic}')
-    ax.set_xlabel('Period')
-    ax.set_ylabel(y_label)
-    ax.legend(title='Population', bbox_to_anchor=(1, 1), loc='upper left')
-    ax.set_xticks(range(len(survey_df.index)))
-    ax.set_xticklabels(survey_df.index, rotation=45)
+        # Create a line plot of the survey data
+        survey_df.plot(ax=ax, marker='o')
 
-    # Display the plot in Streamlit
-    st.pyplot(fig)
+        # Set labels
+        ax.set_title(f'{selected_survey} {title} by {selected_demographic}')
+        ax.set_xlabel('Period')
+        ax.set_ylabel(y_label)
+        ax.legend(title='Population', bbox_to_anchor=(1, 1), loc='upper left')
+        ax.set_xticks(range(len(survey_df.index)))
+        ax.set_xticklabels(survey_df.index, rotation=45)
 
-    # Save the plot as a PNG file
-    # Format the demographic name for the file path
-    survey_name = selected_survey.replace(' ', '_').replace('/', '_').lower()
-    demographic_name = selected_demographic.replace(' ', '_').replace('/', '_').lower()
-    plot_path = f'src/figures/{survey_name}_{demographic_name}_survey.png'
-    fig.savefig(plot_path, bbox_inches='tight')
+        # Display the plot in Streamlit
+        st.pyplot(fig)
 
-    return survey_df
+        # Save the plot as a PNG file
+        # Format the demographic name for the file path and lowercase
+        # Replace blank space with underscore and remove special characters for better file naming
+        survey_name = re.sub(r'[\*\^\\\[\]/]', '', selected_survey).lower()
+        survey_name = survey_name.replace(' ', '_').lower()
+        demographic_name = re.sub(r'[\*\^\\\[\]/]', '', selected_demographic).lower()
+        demographic_name = demographic_name.replace(' ', '_').lower()
+        plot_path = f'src/figures/{survey_name}_{demographic_name}_survey.png'
+        fig.savefig(plot_path, bbox_inches='tight')
+
+        return survey_df
 
 def plot_odds_ratio(model, indicator: str) -> tuple[pd.DataFrame, str]:
     """
